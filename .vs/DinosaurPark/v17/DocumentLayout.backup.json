@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\worldobjects\\iinteractable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\worldobjects\\iinteractable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\worldobjects\\iplaceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\worldobjects\\iplaceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\inventory\\itempickupinfoshower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\inventory\\itempickupinfoshower.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\inventory\\playerinventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\inventory\\playerinventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\worldobjects\\stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\worldobjects\\stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IPlaceItem.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\IPlaceItem.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\IPlaceItem.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\IPlaceItem.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\IPlaceItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:38:37.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IInteractable.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\IInteractable.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\IInteractable.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\IInteractable.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\IInteractable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T23:37:35.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ItemPickUpInfoShower.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Inventory\\ItemPickUpInfoShower.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\Inventory\\ItemPickUpInfoShower.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Inventory\\ItemPickUpInfoShower.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\Inventory\\ItemPickUpInfoShower.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T20:03:34.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Stand.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwB4AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T12:15:05.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerInventoryController.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Inventory\\PlayerInventoryController.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\Inventory\\PlayerInventoryController.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Inventory\\PlayerInventoryController.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\Inventory\\PlayerInventoryController.cs",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAowDIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-30T21:40:13.639Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
