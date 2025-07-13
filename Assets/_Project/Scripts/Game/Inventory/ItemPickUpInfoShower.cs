@@ -25,10 +25,10 @@ public class ItemPickUpInfoShower : MonoBehaviour
         _text.text = item.ItemName + _baseTextPlace;
     }
 
-    public void ActivePanelInteract(InventoryItemLibrary item)
+    public void ActivePanelInteract(string item)
     {
         _panel.SetActive(true);
-        _text.text = item.ItemName + _baseTextInteract;
+        _text.text = item + _baseTextInteract;
     }
 
     public void DeactivePanel() => _panel.SetActive(false);

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Drawing;
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace Inventory
         private ItemPickUpInfoShower _itemPickUpInfoShower;
 
         private IPlaceItem _lastHoveredItem;
+        private IInteractable _lastHoveredInteractable;
         private int[] _items = new int[MAX_INVENTAR_COUNT];
         private int _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
@@ -46,9 +48,14 @@ namespace Inventory
         {
             if (!IsOwner) return;
 
+            if (!GameClientsNerworkInfo.Singleton.CharacterPermissions.HasPermission(Character.CharacterPermissionsType.Input))
+                return;
+
             UpdatePickUp();
 
             UpdateSummonItem();
+
+            UpdateInteract();
 
             UpdateSelectItemInInventory();
             UpdateSelectMouseWheelItemInInventory();
@@ -73,6 +80,25 @@ namespace Inventory
 
             if (Input.GetKeyDown(KeyCode.G))
                 TrySummonItem(placeItem, point);
+        }
+
+        private void UpdateInteract()
+        {
+            if (_lastHoveredInteractable != null && Input.GetKeyUp(KeyCode.R))
+                _lastHoveredInteractable.OnInteractUp();
+
+            IInteractable interactable = RaycastToInteract();
+
+            if (!Input.GetKey(KeyCode.R))
+            {
+                if (_lastHoveredInteractable != null && interactable != _lastHoveredInteractable)
+                    _lastHoveredInteractable.OnHoverExit();
+
+                _lastHoveredInteractable = interactable;
+            }
+
+            if (interactable != null && Input.GetKeyDown(KeyCode.R))
+                TryInteract(interactable);
         }
 
         private void UpdateSelectItemInInventory()
@@ -221,27 +247,30 @@ namespace Inventory
                 RequestSummonRpc(point.Value.x, 1, point.Value.z, result.id);
 
             return;
+        }
 
-            /*   Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-               if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, summonLayerMask))
-               {
-                   IPlaceItem placeItem = hit.collider.GetComponent<IPlaceItem>();
-                   if (placeItem != null)
-                   {
-                       Debug.Log(placeItem.CheckIfCanPlaceItem(_items[_selectedItem]));
-                       if(!placeItem.CheckIfCanPlaceItem(_items[_selectedItem]))
-                           return;
 
-                       var result = RemoveItemFromList();
-                       placeItem.PlaceItem(result.id);
-                   }
-                   else
-                   {
-                       var result = RemoveItemFromList();
-                       if (result.removed)
-                           RequestSummonRpc(hit.point.x, 1, hit.point.z, result.id);
-                   }
-               }*/
+        public IInteractable RaycastToInteract()
+        {
+            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+                if (hit.collider.TryGetComponent<IInteractable>(out var item))
+                {
+                    if (!item.CanBeInteracted())
+                        return null;
+
+                    _itemPickUpInfoShower.ActivePanelInteract(item.GetInteractText());
+                    item.OnHoverEnter();
+                    return item;
+                }
+
+            return null;
+        }
+
+        private void TryInteract(IInteractable item)
+        {
+            item.OnInteractDown();
+            item.OnHoverExit();
         }
 
         [Rpc(SendTo.Server)]

@@ -10,7 +10,7 @@ public class Stand : NetworkBehaviour, IPlaceItem
     [SerializeField]
     private Collider _collider;
     [SerializeField]
-    private TextMeshPro _text;
+    private TMP_InputField _text;
     [SerializeField]
     private Material _hoverMat;
 

@@ -1,13 +1,28 @@
+using Character;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class GameClientsNerworkInfo : NetworkBehaviour
 {
     private Dictionary<ulong, (string name, ulong id)> _playersInfo = new();
     public static GameClientsNerworkInfo Singleton { get; private set; }
+    public CharacterPermissions CharacterPermissions { get; private set; } = new();
+
+    public CharacterGO MainPlayer
+    {
+        get => mainPlayer; set
+        {
+            OnPlayerSet?.Invoke(value);
+            mainPlayer = value;
+        }
+    }
+    public Action<CharacterGO> OnPlayerSet;
+    private CharacterGO mainPlayer;
+
     private void Awake()
     {
         if (Singleton != null && Singleton != this)

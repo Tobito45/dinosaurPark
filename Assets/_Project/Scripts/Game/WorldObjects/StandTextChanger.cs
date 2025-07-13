@@ -1,7 +1,8 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
-public class StandTextChanger : IInteractable
+public class StandTextChanger : NetworkBehaviour, IInteractable
 {
     [Header("References")]
     [SerializeField]
@@ -9,26 +10,45 @@ public class StandTextChanger : IInteractable
 
     [Header("Settings")]
     [SerializeField]
-    private TextMeshProUGUI _text;
+    private TMP_InputField _text;
 
     private bool _isInEditingMode;
 
-    
-    
+    public bool CanBeInteracted() => !_stand.CheckIfCanPlaceItem(-1);
+
+    public string GetInteractText() => "Rename";
+
     public void OnHoverEnter() 
     {
-    
+        
     }
 
     public void OnHoverExit() 
-    { 
-        
-    }
-
-    public void OnInteract() 
     {
-        
+        _text.DeactivateInputField();
+        UpdateTextRpc(_text.text);
     }
 
+    public void OnInteractDown() 
+    {
+        _text.Select();
+        _isInEditingMode = true;
+        GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+    }
+
+    public void OnInteractUp() { }
+
+    private void Update()
+    {
+        if (_isInEditingMode && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)))
+        {
+            _text.DeactivateInputField();
+            UpdateTextRpc(_text.text);
+            GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+        }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void UpdateTextRpc(string text) => _text.text = text;
 
 }
