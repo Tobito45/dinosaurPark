@@ -7,6 +7,10 @@ namespace Character
     {
         [SerializeField]
         private GameObject _gamePlayerPrefab;
+        [SerializeField]
+        private Transform _spawnPoint;
+        [SerializeField]
+        private Vector2 _spawnRange; //min and max
 
         private Dictionary<ulong, GameObject> _playerObjects = new Dictionary<ulong, GameObject>();
 
@@ -22,10 +26,10 @@ namespace Character
             var playerGO = Instantiate(_gamePlayerPrefab);
             var networkObject = playerGO.GetComponent<NetworkObject>();
 
-            playerGO.transform.position = new Vector3(
-                Random.Range(-5f, 5f),
+            playerGO.transform.position = _spawnPoint.position + new Vector3(
+                Random.Range(_spawnRange.x,_spawnRange.y),
                 1f,
-                Random.Range(-5f, 5f)
+                Random.Range(_spawnRange.x, _spawnRange.y)
             );
 
             Debug.Log(NetworkManager.Singleton.IsHost);
