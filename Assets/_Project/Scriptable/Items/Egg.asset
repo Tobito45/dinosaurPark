@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12ac4f08e6409945b836f384f206544, type: 3}
+  m_Name: Egg
+  m_EditorClassIdentifier: 
+  <Index>k__BackingField: 3
+  <NetworkObject>k__BackingField: {fileID: 7461823024014424568, guid: 9111a6b4a6118a4408d63f8ae70f7e71, type: 3}
+  <ItemName>k__BackingField: Egg
+  <Description>k__BackingField: 
+  <Color>k__BackingField:
+    serializedVersion: 2
+    rgba: 4282473308

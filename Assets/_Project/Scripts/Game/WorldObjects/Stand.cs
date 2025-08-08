@@ -15,6 +15,7 @@ public class Stand : NetworkBehaviour, IPlaceItem
     private Material _hoverMat;
 
     private NetworkObject _placed;
+    public NetworkObject Placed => _placed;
     private GameObject _hovered;
 
     public bool CheckIfCanPlaceItem(int id) => _placed == null;

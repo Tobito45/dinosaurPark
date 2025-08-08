@@ -1,3 +1,4 @@
+using Museum;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(NPCCreator))]
+    [RequireComponent(typeof(NPCEmotionsController))]
     public class NPCController : NetworkBehaviour
     {
         [SerializeField] 
@@ -18,14 +20,20 @@ namespace NPC
         private NavMeshAgent _agent;
         private NPCCreator _creator;
         private NPCInfo _info;
+        private NPCEmotionsController _emotions;
 
         private List<Transform> _path = new(); //goes from end
-        private bool _waiting = false;
+        private bool _waiting = false, _isInMuseum = false;
+        private int _countLook = -1;
+
+        private MuseumController _museumController;
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
             _creator = GetComponent<NPCCreator>();
+            _emotions = GetComponent<NPCEmotionsController>();
+            _museumController = FindFirstObjectByType<MuseumController>();
             _creator.OnInit += Init;
         }
 
@@ -70,13 +78,46 @@ namespace NPC
         private void OnComeToMuseum()
         {
             Debug.Log(_info.Name + " in museum");
-            CreatePath();
-            MoveToNextWayPoint();
+
+            if(_countLook == -1)
+                _countLook = Random.Range(1, 5);
+
+            InMuseum();
+        }
+
+        public void InMuseum()
+        {
+            Vector3? point = _museumController.GetRandomFullStand(_agent.destination);
+            _isInMuseum = true;
+
+            if(_countLook == 0)
+            {
+                _countLook = -1;
+                point = null;
+            } else
+                _countLook--;
+            
+
+
+            if (point != null)
+            {
+                _agent.destination = point.Value;
+
+            } else
+            {
+                _isInMuseum = false;
+
+                CreatePath();
+                MoveToNextWayPoint();
+            }
         }
 
         public IEnumerator Waiter()
         {
             _waiting = true;
+            if(_isInMuseum)
+                _emotions.ShowEmogi();
+
             yield return new WaitForSeconds(Random.Range(2,5));
             _waiting = false;
             

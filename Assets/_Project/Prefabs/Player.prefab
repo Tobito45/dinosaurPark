@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 2693035394231588351}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,8 +676,8 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
+  m_Height: 1.6
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -740,6 +740,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab9bbff818f212c4c8040b2286d8b4cf, type: 2}
   - {fileID: 11400000, guid: 881c19572459e8f448d1bd385382fa5e, type: 2}
   - {fileID: 11400000, guid: 0fa356d5404e214488291e03369d59dd, type: 2}
+  - {fileID: 11400000, guid: 2ab240cbb00dce64d8dd88df7db2cdcd, type: 2}
+  - {fileID: 11400000, guid: 18be06448d286c642b8a41f3551ae500, type: 2}
+  - {fileID: 11400000, guid: 2a0bf66068d8d1041a02f5a0ea9e7efb, type: 2}
+  - {fileID: 11400000, guid: 10d2c587593242b41a6ced4cf2ce2e05, type: 2}
+  - {fileID: 11400000, guid: 1b17b6fccd78f5645949309a2c108c33, type: 2}
 --- !u!1 &1443928131659224903
 GameObject:
   m_ObjectHideFlags: 0
@@ -3463,7 +3468,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3727312299291734507}
