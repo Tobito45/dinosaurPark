@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class StandTextChanger : NetworkBehaviour, IInteractable
 {
@@ -31,6 +32,7 @@ public class StandTextChanger : NetworkBehaviour, IInteractable
 
     public void OnInteractDown() 
     {
+        EventSystem.current.SetSelectedGameObject(null);
         _text.Select();
         _isInEditingMode = true;
         GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
@@ -45,6 +47,8 @@ public class StandTextChanger : NetworkBehaviour, IInteractable
             _text.DeactivateInputField();
             UpdateTextRpc(_text.text);
             GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+            EventSystem.current.SetSelectedGameObject(null);
+
         }
     }
 

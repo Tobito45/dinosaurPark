@@ -3,7 +3,147 @@ guid: 70ff88aab4b1221468cf1f198d0bdfbc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beige
+    second: {fileID: 2100000, guid: 92d61086b5a5dbd41ba1265052abbd56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: 4829515696c57c84ab8c7974bc7d81b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue-Transparent
+    second: {fileID: 2100000, guid: 690202b750063634cb5a0b3affc2901e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown
+    second: {fileID: 2100000, guid: b8092606a6f947443b187b7d158bb792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown-Wood
+    second: {fileID: 2100000, guid: eef8336f489be3145a5ff11bd02f2b25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark-Brown
+    second: {fileID: 2100000, guid: 0f56cabebbbd13344b5ec4ca0be0ee67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark-Green
+    second: {fileID: 2100000, guid: 4f276979f3e468f4d9c01602e0c4c3b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark-Green-Metallic
+    second: {fileID: 2100000, guid: c29188a185cf53446996e275186b0091, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark-Grey
+    second: {fileID: 2100000, guid: 586003c1a65178f4b9ef866b922e722c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark-Grey-Metallic
+    second: {fileID: 2100000, guid: 3d355a43478d3d349b763b2badaf9ffb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor-Texture
+    second: {fileID: 2100000, guid: 6dcd9a172a9224948b5fba006bcb155f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: 2100000, guid: e304a9edd84977f46aca5b1941b90e56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grey
+    second: {fileID: 2100000, guid: 9adbc7c77e8f97f41ac67f2853457391, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grey-Metallic
+    second: {fileID: 2100000, guid: 25d0f370daa280048a88bd01d6672159, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Blue
+    second: {fileID: 2100000, guid: 5322c92a4bad97042b941c3236f7cc4e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Brown-Wood
+    second: {fileID: 2100000, guid: f0dc0e39a3c36e94585f64eedd385c9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Green
+    second: {fileID: 2100000, guid: e53d55b463431874eb1d472bb0721a72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Green-2
+    second: {fileID: 2100000, guid: af4d7962930094f439ce4716084d385a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Grey
+    second: {fileID: 2100000, guid: 3588560f74107864d95cce65b42ef19b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Grey-Metallic
+    second: {fileID: 2100000, guid: a5c569d2d4b7d9f47bf0bc806c819e26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Orange
+    second: {fileID: 2100000, guid: 5647e89f7474e9443911529bd3e09ce4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-Red
+    second: {fileID: 2100000, guid: 62b46ada06f9ba44aa5502238f9b1ec0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light-White
+    second: {fileID: 2100000, guid: b018fd1213d25d84a90c98713c9d4dbb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pinkish-Beige
+    second: {fileID: 2100000, guid: a395fbf5e38d6d74a9809fb71806320c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: e1485090f0537a34eae4894172b5175e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White-Museum
+    second: {fileID: 2100000, guid: 28e1876e8e9b2ce409af80c43a2806ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White-Transparent
+    second: {fileID: 2100000, guid: 1fed1c25a5ce74a4cbe8dce09c5b00ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Yellow
+    second: {fileID: 2100000, guid: f37ac0b7f9ae0ba40b50b246d2c1da2a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,7 +186,7 @@ ModelImporter:
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
