@@ -51,5 +51,6 @@ namespace NPC
             _nameText.text = name;
             _agent.avoidancePriority = priority;
         }
+
     }
 }

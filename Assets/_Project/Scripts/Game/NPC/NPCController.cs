@@ -1,5 +1,6 @@
 using Museum;
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace NPC
             _creator.OnInit += Init;
         }
 
+
         private void Update()
         {
             if (!IsServer)
@@ -54,17 +56,19 @@ namespace NPC
             MoveToNextWayPoint();
         }
 
+        //TO OTHER CLASS?
+        public void AddOnEmothion(Action<EmotionType> action) => _emotions.OnMakeEmotion += action;
 
         private void CreatePath()
         {
             _path.Clear();
 
-            int count = Random.Range(1, 4 + 1);
+            int count = UnityEngine.Random.Range(1, 4 + 1);
             var pointsList = _creator.Points.ToList();
             _path.Add(_creator.MuseumPoint);
 
             for (int i = 0; i < count; i++)
-                _path.Add(pointsList[Random.Range(0, pointsList.Count)]);
+                _path.Add(pointsList[UnityEngine.Random.Range(0, pointsList.Count)]);
         }
 
         private void MoveToNextWayPoint()
@@ -80,7 +84,7 @@ namespace NPC
             Debug.Log(_info.Name + " in museum");
 
             if(_countLook == -1)
-                _countLook = Random.Range(1, 5);
+                _countLook = UnityEngine.Random.Range(1, 5);
 
             InMuseum();
         }
@@ -118,7 +122,7 @@ namespace NPC
             if(_isInMuseum)
                 _emotions.ShowEmogi();
 
-            yield return new WaitForSeconds(Random.Range(2,5));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(2,5));
             _waiting = false;
             
             if (_path.Count() == 1)

@@ -1,9 +1,15 @@
+using GameUI;
 using NPC;
 using Unity.Netcode;
 using UnityEngine;
 
 public class NPCSpawner : NetworkBehaviour
 {
+    [Header("References")]
+    [SerializeField]
+    private StatisticsUI _statisticsUI;
+
+
     [SerializeField]
     private NetworkObject _prefab;
 
@@ -25,6 +31,7 @@ public class NPCSpawner : NetworkBehaviour
                 var obj = Instantiate(_prefab, _spawnPoints[i].position, Quaternion.identity);
                 obj.Spawn();
                 obj.GetComponent<NPCCreator>().Init(item);
+                obj.GetComponent<NPCController>().AddOnEmothion(_statisticsUI.OnNewEmothion);
             }
         }
     }
