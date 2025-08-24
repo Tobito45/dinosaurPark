@@ -38,23 +38,37 @@ namespace Inventory
                 DeSelectItem(_currectSelected);
 
             _list[index].SelectBackground.SetActive(true);
+            _list[index].ActualItem.OnSelect();
             _currectSelected = index;
         }
 
-        public void DeSelectItem(int index) => _list[index].SelectBackground.SetActive(false);
+        public void DeSelectItem(int index)
+        {
+            _list[index].SelectBackground.SetActive(false);
+            _list[index].ActualItem?.OnDeselect();
+        }
 
-        public void PutItem(int index, InventoryItemLibrary itemLibrary) =>
+        public void PutItem(int index, InventoryItemLibrary itemLibrary)
+        {
             _list[index].Image.color = itemLibrary.Color;
+            _list[index].ActualItem = itemLibrary;
+        }
 
-        public void ResetItem(int index) =>
+        public void ResetItem(int index)
+        {
             _list[index].Image.color = _list[index].BaseColor;
+            _list[index].ActualItem = null;
+        }
     }
 
     [System.Serializable]
     internal class InventoryUIItem
     {
-        [field:SerializeField]
+        [field: SerializeField]
         public GameObject SelectBackground { get; private set; }
+
+        [field: SerializeField]
+        public InventoryItemLibrary ActualItem { get; set; }
 
         [field: SerializeField]
         public Image Image { get ; private set; }

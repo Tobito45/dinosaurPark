@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8967baf99302641be6d59896c9d768, type: 3}
+  m_Name: Fountain
+  m_EditorClassIdentifier: 
+  <Index>k__BackingField: 8
+  <NetworkObject>k__BackingField: {fileID: 8671513958621782, guid: 90373991bd8835b43b1ad41a1ad2b9f1, type: 3}
+  <ItemName>k__BackingField: Fountain
+  <Description>k__BackingField: 
+  <Color>k__BackingField:
+    serializedVersion: 2
+    rgba: 2813736494
+  item: {fileID: 11400000, guid: 0e95e777edba61144b2c06bcf708342b, type: 2}

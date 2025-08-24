@@ -1,3 +1,4 @@
+using Placement;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,4 +19,9 @@ public class InventoryItemLibrary : ScriptableObject
 
     [field: SerializeField]
     public Color32 Color { get; private set; }
+
+    public virtual void OnSelect() { }
+
+    public virtual void OnDeselect() { }
 }
+

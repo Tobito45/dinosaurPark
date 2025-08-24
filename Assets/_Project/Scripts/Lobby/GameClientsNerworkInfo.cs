@@ -14,7 +14,8 @@ public class GameClientsNerworkInfo : NetworkBehaviour
 
     public CharacterGO MainPlayer
     {
-        get => mainPlayer; set
+        get => mainPlayer; 
+        set
         {
             OnPlayerSet?.Invoke(value);
             mainPlayer = value;

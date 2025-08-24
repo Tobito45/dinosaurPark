@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8237813079135669681}
   - component: {fileID: 8966938125269799471}
   - component: {fileID: 2995928232590140188}
-  m_Layer: 0
+  - component: {fileID: 8769277866159419285}
+  m_Layer: 7
   m_Name: Placement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +103,23 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8769277866159419285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218824647178468775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9aafbb01765cd84e999eecbdb6af90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _freeMaterial: {fileID: 2100000, guid: a925862c3f420cc4f9d13384e0267af6, type: 2}
+  _occupiedMaterial: {fileID: 2100000, guid: 0842fb51d6b481d4f88b09beac0292e2, type: 2}
