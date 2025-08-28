@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
@@ -130,6 +131,8 @@ namespace NPC
             else
                 MoveToNextWayPoint();
         }
+        public NPCInfo GetNPCInfo() => _info;
+        
 
     }
 }
