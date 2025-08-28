@@ -10,17 +10,49 @@ namespace GameUI
         [SerializeField]
         private Canvas _statisticsCanvas;
 
-        private void Start() => _statisticsCanvas.gameObject.SetActive(false);
+        [SerializeField]
+        private Canvas _consoleUI;
+
+        private bool isOpen;
+
+        private void Start()
+        {
+            _statisticsCanvas.gameObject.SetActive(false);
+            _consoleUI.gameObject.SetActive(false);
+        }
+
 
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab))
                 _statisticsCanvas.gameObject.SetActive(true);
 
             if (Input.GetKeyUp(KeyCode.Tab))
                 _statisticsCanvas.gameObject.SetActive(false);
 
+            if (Input.GetKeyDown(KeyCode.BackQuote)) // ~ key
+            {
+                isOpen = !isOpen;
+                _consoleUI.gameObject.SetActive(isOpen);
+
+
+                //NEED to add some block for movement and camera movement
+                if (isOpen)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+
+                }
+            }
         }
     }
 }
