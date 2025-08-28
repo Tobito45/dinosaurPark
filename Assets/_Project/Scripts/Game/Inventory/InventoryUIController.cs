@@ -38,7 +38,7 @@ namespace Inventory
                 DeSelectItem(_currectSelected);
 
             _list[index].SelectBackground.SetActive(true);
-            _list[index].ActualItem.OnSelect();
+            _list[index].ActualItem?.OnSelect();
             _currectSelected = index;
         }
 

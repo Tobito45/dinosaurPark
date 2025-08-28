@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  <ItemId>k__BackingField: 7
+  <Item>k__BackingField: {fileID: 11400000, guid: 1b17b6fccd78f5645949309a2c108c33, type: 2}
 --- !u!54 &6295939228583589219
 Rigidbody:
   m_ObjectHideFlags: 0

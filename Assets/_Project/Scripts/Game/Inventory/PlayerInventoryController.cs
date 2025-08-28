@@ -153,7 +153,7 @@ namespace Inventory
             if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
                 if (hit.collider.TryGetComponent<ItemPickup>(out var item))
                 {
-                    _itemPickUpInfoShower.ActivePanelPick(InventoryItemsLibrary.GetIInventoryItem(item.ItemId));
+                    _itemPickUpInfoShower.ActivePanelPick(item.Item);
                     return item;
                 }
 
@@ -163,11 +163,11 @@ namespace Inventory
 
         private void TryPickupItem(ItemPickup item)
         {
-            if (PutItemToList(item.ItemId))
+            if (PutItemToList(item.Item))
                 RequestPickupRpc(item.NetworkObject);
         }
 
-        private bool PutItemToList(int id)
+        private bool PutItemToList(InventoryItemLibrary item)
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
             {
@@ -175,8 +175,8 @@ namespace Inventory
                 {
                     if (_items[i] == BASIC_INDEX_NOT_SELECTED)
                     {
-                        _items[i] = id;
-                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetIInventoryItem(id));
+                        _items[i] = item.Index;
+                        _inventoryUIController.PutItem(i, item);
                         return true;
                     }
                 }
@@ -185,10 +185,23 @@ namespace Inventory
             else
             {
                 if (_items[_selectedItem] != BASIC_INDEX_NOT_SELECTED)
+                {
+                    for (int i = 0; i < _items.Length; i++)
+                    {
+                        if (_items[i] == BASIC_INDEX_NOT_SELECTED)
+                        {
+                            _items[i] = item.Index;
+                            _inventoryUIController.PutItem(i, item);
+                            return true;
+                        }
+                    }
                     return false;
+                }
+                    
+                    
 
-                _items[_selectedItem] = id;
-                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetIInventoryItem(id));
+                _items[_selectedItem] = item.Index;
+                _inventoryUIController.PutItem(_selectedItem, item);
                 return true;
             }
         }
