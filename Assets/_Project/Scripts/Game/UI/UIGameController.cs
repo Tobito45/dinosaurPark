@@ -1,57 +1,75 @@
 using UnityEngine;
 
-
-
 namespace GameUI
 {
     public class UIGameController : MonoBehaviour
     {
         [Header("Canvases")]
-        [SerializeField]
-        private Canvas _statisticsCanvas;
+        [SerializeField] private Canvas _statisticsCanvas;
+        [SerializeField] private Canvas _consoleCanvas;
+        [SerializeField] private Canvas _npcStatsCanvas;
 
-        [SerializeField]
-        private Canvas _consoleUI;
-
-        private bool isOpen;
+        private bool _consoleOpen;
+        private bool _npcStatsOpen;
 
         private void Start()
         {
-            _statisticsCanvas.gameObject.SetActive(false);
-            _consoleUI.gameObject.SetActive(false);
+            SetCanvasActive(_statisticsCanvas, false);
+            SetCanvasActive(_consoleCanvas, false);
+            SetCanvasActive(_npcStatsCanvas, false);
         }
-
-
 
         private void Update()
         {
+            HandleStatisticsCanvas();
+            HandleConsoleCanvas();
+            HandleNpcStatsCanvas();
+        }
+
+        private void HandleStatisticsCanvas()
+        {
             if (Input.GetKeyDown(KeyCode.Tab))
-                _statisticsCanvas.gameObject.SetActive(true);
+                SetCanvasActive(_statisticsCanvas, true);
 
             if (Input.GetKeyUp(KeyCode.Tab))
-                _statisticsCanvas.gameObject.SetActive(false);
+                SetCanvasActive(_statisticsCanvas, false);
+        }
 
-            if (Input.GetKeyDown(KeyCode.BackQuote)) // ~ key
+        private void HandleConsoleCanvas()
+        {
+            if (Input.GetKeyDown(KeyCode.BackQuote))
             {
-                isOpen = !isOpen;
-                _consoleUI.gameObject.SetActive(isOpen);
+                _consoleOpen = !_consoleOpen;
+                SetCanvasActive(_consoleCanvas, _consoleOpen, blockInput: _consoleOpen);
+            }
+        }
 
+        private void HandleNpcStatsCanvas()
+        {
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                _npcStatsOpen = !_npcStatsOpen;
+                SetCanvasActive(_npcStatsCanvas, _npcStatsOpen, blockInput: _npcStatsOpen);
+            }
+        }
 
-                //NEED to add some block for movement and camera movement
-                if (isOpen)
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+        private void SetCanvasActive(Canvas canvas, bool active, bool blockInput = false)
+        {
+            if (canvas == null) return;
 
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+            canvas.gameObject.SetActive(active);
 
-                }
+            if (blockInput)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+            }
+            else if (!active) // restore only when closing
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
             }
         }
     }
