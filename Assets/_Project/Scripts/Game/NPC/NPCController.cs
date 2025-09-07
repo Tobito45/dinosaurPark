@@ -58,7 +58,11 @@ namespace NPC
         }
 
         //TO OTHER CLASS?
-        public void AddOnEmothion(Action<EmotionType> action) => _emotions.OnMakeEmotion += action;
+        public void AddOnEmothion(Action<EmotionType, string> onEmothing, Action OnStartWatch)
+        {
+            _emotions.OnMakeEmotion += onEmothing;
+            _emotions.OnStartWatch += OnStartWatch;
+        }
 
         private void CreatePath()
         {
@@ -69,7 +73,11 @@ namespace NPC
             _path.Add(_creator.MuseumPoint);
 
             for (int i = 0; i < count; i++)
-                _path.Add(pointsList[UnityEngine.Random.Range(0, pointsList.Count)]);
+            {
+                int index = UnityEngine.Random.Range(0, pointsList.Count);
+                _path.Add(pointsList[index]);
+                pointsList.RemoveAt(index);
+            }
         }
 
         private void MoveToNextWayPoint()
@@ -85,11 +93,15 @@ namespace NPC
             Debug.Log(_info.Name + " in museum");
 
             if(_countLook == -1)
+            {
+                _watchedFirstTimeDirtyFlag = true;
                 _countLook = UnityEngine.Random.Range(1, 5);
+            }
 
             InMuseum();
         }
 
+        private bool _watchedFirstTimeDirtyFlag = true;
         public void InMuseum()
         {
             Vector3? point = _museumController.GetRandomFullStand(_agent.destination);
@@ -106,6 +118,12 @@ namespace NPC
 
             if (point != null)
             {
+                if (_watchedFirstTimeDirtyFlag)
+                {
+                    _watchedFirstTimeDirtyFlag = false;
+                    _emotions.StartWatching();
+                }
+
                 _agent.destination = point.Value;
 
             } else

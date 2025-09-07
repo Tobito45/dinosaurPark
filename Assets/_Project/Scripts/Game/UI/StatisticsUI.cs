@@ -12,62 +12,83 @@ namespace GameUI
     public class StatisticsUI : NetworkBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI _textCountNegative, _textCountMiddle, _textCountPozitive;
+        private TextMeshProUGUI _textCountNegative, _textCountMiddle, _textCountPozitive, _textCountAll;
         [SerializeField]
         private GameObject _scrollNPCItems;
         [SerializeField]
         private GameObject _prefabNPCItem;
-        // Items in Scroll NPC TODO MAKE DICTIONARY
-        [Serializable]
-        public class SpawnedItem
-        {
-            public GameObject uiObject;  // the UI element in the scroll
-            public NPCController npcObject; // the NPC this UI item represents
-        }
-        private readonly List<SpawnedItem> spawnedItemNPCScroll = new();
 
-        private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0;
+        private Dictionary<string, SpawnedItem> spawnedItemNPCScroll = new();
+
+        private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0, _countAll = 0;
 
         private void Start()
         {
             _textCountNegative.text = _countNegative.ToString();
             _textCountMiddle.text = _countMiddle.ToString();
             _textCountPozitive.text = _countPozitive.ToString();
+            _textCountAll.text = _countAll.ToString();
             //TODO values to stat
             GenerateListNPCScroll();
         }
 
-        public void OnNewEmothion(EmotionType emotion)
+        public void OnStartWatching()
         {
+            _countAll++;
+            UpdateTextsRPC(_countMiddle, _countNegative, _countPozitive, _countAll);
+        }
+
+        public void OnNewEmothion(EmotionType emotion, string name)
+        {
+            SpawnedItem item = spawnedItemNPCScroll[name];
+
             switch (emotion)
             {
                 case EmotionType.Happy:
                     _countPozitive++;
+                    item.CountPositive++;
                     break;
                 case EmotionType.Sad:
                     _countMiddle++;
+                    item.CountNeutral++;
                     break;
                 case EmotionType.Angry:
                     _countNegative++;
+                    item.CountNegative++;
                     break;
             }
-            UpdateTextsRPC(_countMiddle, _countNegative, _countPozitive);
+            UpdateTextsRPC(_countMiddle, _countNegative, _countPozitive, _countAll);
+
+            UpdateTextsNPCRPC(item.CountNeutral, item.CountNegative, item.CountPositive, name);
         }
 
         [Rpc(SendTo.Everyone)]
-        public void UpdateTextsRPC(int countMiddle, int countNegative, int countPozitive)
+        public void UpdateTextsRPC(int countMiddle, int countNegative, int countPozitive, int _countAll)
         {
             _textCountMiddle.text = countMiddle.ToString();
             _textCountNegative.text = countNegative.ToString();
             _textCountPozitive.text = countPozitive.ToString();
+            _textCountAll.text = _countAll.ToString();
         }
+
+        [Rpc(SendTo.Everyone)]
+        public void UpdateTextsNPCRPC(int countMiddle, int countNegative, int countPositive, string name)
+        {
+            SpawnedItem item = spawnedItemNPCScroll[name];
+            item.CountNegative = countNegative;
+            item.CountPositive = countPositive;
+            item.CountNeutral = countMiddle;
+
+            UpdateNPCScrollItem(name);
+        }
+
         private void GenerateListNPCScroll()
         {
             NPCController[] npcs = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
             foreach (var npc in npcs)
             {
                 GameObject newItem = Instantiate(_prefabNPCItem, _scrollNPCItems.transform);
-                spawnedItemNPCScroll.Add(new SpawnedItem { uiObject = newItem, npcObject = npc });
+                spawnedItemNPCScroll.Add(npc.GetNPCInfo().Name, new SpawnedItem(newItem, npc));
 
                 // Example: if prefab has a TMP_Text component
                 TMP_Text text = newItem.GetComponentsInChildren<TMP_Text>()[0];
@@ -78,27 +99,47 @@ namespace GameUI
             }
             UpdateNPCScrollItems();
         }
-        //TODO ADD VALUES HERE
+        
         public void UpdateNPCScrollItems()
         {
             foreach (var itemNpc in spawnedItemNPCScroll)
-            {
-
-                TMP_Text[] text = itemNpc.uiObject.GetComponentsInChildren<TMP_Text>();
-                if (text == null)
-                {
-                    Debug.Log("Not found object in npc scroll!");
-                    break;
-                }
-                // Name
-                text[0].text = itemNpc.npcObject.GetNPCInfo().Name;
-                // Text Count Negative
-                text[1].text = "" + 0;
-                // Text Count Middle
-                text[2].text = "" + 0;
-                // Text Count Positive
-                text[3].text = "" + 0;
-            }
+                UpdateTextItem(itemNpc.Value.UiObject, itemNpc.Value.NpcObject.GetNPCInfo().Name);
         }
+
+        public void UpdateNPCScrollItem(string name)
+        {
+            SpawnedItem item = spawnedItemNPCScroll[name];
+
+            UpdateTextItem(item.UiObject, item.NpcObject.GetNPCInfo().Name, item.CountNegative, item.CountNeutral, item.CountPositive);
+        }
+
+        private void UpdateTextItem(GameObject uiObject, string name, int negative = 0, int neutral = 0, int positive = 0)
+        {
+            //sick moment
+            TMP_Text[] text = uiObject.GetComponentsInChildren<TMP_Text>();
+            // Name
+            text[0].text = name;
+            // Text Count Negative
+            text[1].text = "" + negative;
+            // Text Count Middle
+            text[2].text = "" + neutral;
+            // Text Count Positive
+            text[3].text = "" + positive;
+        }
+    }
+    public class SpawnedItem
+    {
+        public GameObject UiObject { get; private set; } // the UI element in the scroll
+        public NPCController NpcObject { get; private set; } // the NPC this UI item represents
+
+        public SpawnedItem(GameObject uiObject, NPCController npcObject)
+        {
+            UiObject = uiObject;
+            NpcObject = npcObject;
+        }
+
+        public int CountNegative { get; set; } = 0;
+        public int CountPositive { get; set; } = 0;
+        public int CountNeutral { get; set; } = 0;
     }
 }

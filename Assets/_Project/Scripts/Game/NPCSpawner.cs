@@ -31,7 +31,7 @@ public class NPCSpawner : NetworkBehaviour
                 var obj = Instantiate(_prefab, _spawnPoints[i].position, Quaternion.identity);
                 obj.Spawn();
                 obj.GetComponent<NPCCreator>().Init(item);
-                obj.GetComponent<NPCController>().AddOnEmothion(_statisticsUI.OnNewEmothion);
+                obj.GetComponent<NPCController>().AddOnEmothion(_statisticsUI.OnNewEmothion, _statisticsUI.OnStartWatching);
             }
         }
     }

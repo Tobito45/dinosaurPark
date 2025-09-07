@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\ui\\statisticsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\ui\\statisticsui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\npc\\npcemotionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\npc\\npcemotionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\npc\\npccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\npc\\npccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|c:\\users\\boris\\documents\\newgamesold\\dinosaurpark\\assets\\_project\\scripts\\game\\npcspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\npcspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\museum\\museumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\museum\\museumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\spawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\worldobjects\\stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\worldobjects\\stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\museum\\museumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\museum\\museumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\assets\\_project\\scripts\\game\\npc\\npcsimplecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D357B142-0DA5-0743-5DF0-5665EC743F63}|Assembly-CSharp.csproj|solutionrelative:assets\\_project\\scripts\\game\\npc\\npcsimplecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,33 +46,59 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NPCSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPCSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\NPCSpawner.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPCSpawner.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\NPCSpawner.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwCEAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T10:12:56.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NPCController.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCController.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCController.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCController.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAtwD4AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T10:07:27.62Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "StatisticsUI.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\UI\\StatisticsUI.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\UI\\StatisticsUI.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\UI\\StatisticsUI.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\UI\\StatisticsUI.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwD0AAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T09:57:11.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "NPCEmotionsController.cs",
               "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCEmotionsController.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCEmotionsController.cs",
               "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCEmotionsController.cs",
               "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCEmotionsController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAYwCIAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAMwCUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T20:56:28.715Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Spawner.cs",
-              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Spawner.cs",
-              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\Spawner.cs",
-              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Spawner.cs",
-              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\Spawner.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAqwA0AAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T19:51:06.411Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Stand.cs",
               "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\WorldObjects\\Stand.cs",
@@ -76,27 +110,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MuseumController.cs",
               "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Museum\\MuseumController.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\Museum\\MuseumController.cs",
               "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Museum\\MuseumController.cs",
               "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\Museum\\MuseumController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA8AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T19:45:30.618Z"
+              "WhenOpened": "2025-09-06T19:45:30.618Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NPCSimpleController.cs",
-              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCSimpleController.cs",
-              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCSimpleController.cs",
-              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\NPC\\NPCSimpleController.cs",
-              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\NPC\\NPCSimpleController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "Spawner.cs",
+              "DocumentMoniker": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Spawner.cs",
+              "RelativeDocumentMoniker": "Assets\\_Project\\Scripts\\Game\\Spawner.cs",
+              "ToolTip": "C:\\Users\\Boris\\Documents\\NewGamesOld\\DinosaurPark\\Assets\\_Project\\Scripts\\Game\\Spawner.cs",
+              "RelativeToolTip": "Assets\\_Project\\Scripts\\Game\\Spawner.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwA0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-06T19:44:53.501Z"
+              "WhenOpened": "2025-09-06T19:51:06.411Z"
             }
           ]
         }

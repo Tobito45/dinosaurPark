@@ -22,12 +22,15 @@ namespace NPC
         [SerializeField]
         private AnimationClip _shower, _closer;
 
-        internal Action<EmotionType> OnMakeEmotion;
+        internal Action<EmotionType, string> OnMakeEmotion;
+        internal Action OnStartWatch;
 
         private void Start() => _emogiShower.transform.localScale = Vector3.zero;
 
         private Sprite GetRandomSprite =>
             _emothions[UnityEngine.Random.Range(0, _emothions.Count)];
+
+        public void StartWatching() => OnStartWatch?.Invoke();
 
         public void ShowEmogi()
         {
@@ -39,7 +42,7 @@ namespace NPC
         {
             _emogiShower.sprite = sprite;
             _animator.Play(_shower.name);
-            OnMakeEmotion?.Invoke((EmotionType)index);  
+            OnMakeEmotion?.Invoke((EmotionType)index, GetComponent<NPCController>().GetNPCInfo().Name);  
             yield return  new WaitForSeconds(3);
             _animator.Play(_closer.name);
         }
