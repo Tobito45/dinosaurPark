@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stand
   m_EditorClassIdentifier: 
   <Index>k__BackingField: 9
-  <NetworkObject>k__BackingField: {fileID: 8671513958621782, guid: 90373991bd8835b43b1ad41a1ad2b9f1, type: 3}
+  <NetworkObject>k__BackingField: {fileID: 4676213155152883351, guid: 619fae394dd00f840a8dc992b38d12ea, type: 3}
   <ItemName>k__BackingField: Stand
   <Description>k__BackingField: 
   <Color>k__BackingField:

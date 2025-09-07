@@ -1,3 +1,4 @@
+using Inventory;
 using Placement;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class InventoryPlacementItemLibrary : InventoryItemLibrary
     private Placement.Placement item;
 
     private PlacementController _placementController;
+    private PlayerInventoryController _playerInventoryController;
 
     public override void OnSelect()
     {

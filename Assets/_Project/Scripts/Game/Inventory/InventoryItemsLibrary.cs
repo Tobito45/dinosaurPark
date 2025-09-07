@@ -1,24 +1,14 @@
-using NUnit.Framework;
+using Library;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class InventoryItemsLibrary : NetworkBehaviour
+namespace Library
 {
-    [SerializeField]
-    private List<InventoryItemLibrary> _list = new();
-
-    private static Dictionary<int, InventoryItemLibrary> _dictionary = new();
-
-    private void Start()
+    public class InventoryItemsLibrary : BaseLibrary<InventoryItemLibrary>
     {
-        if (!IsOwner)
-            return;
-
-        _dictionary.Clear();
-        foreach (var item in _list)
-            _dictionary.Add(item.Index, item);
+        private void Start() => Initialize("item");
     }
-
-    public static InventoryItemLibrary GetIInventoryItem(int id) => _dictionary.TryGetValue(id, out var item) ? item : throw new System.Exception("Error id");
 }

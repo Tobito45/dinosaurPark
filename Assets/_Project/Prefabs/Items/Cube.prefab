@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5767254368678855943}
   - component: {fileID: 6548589345759952060}
   - component: {fileID: 6011937830474083869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Museum Statue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.01015
   m_Center: {x: 0.0000000037252903, y: 0, z: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 8565688570321275998}
   - component: {fileID: 7621292117537928332}
   - component: {fileID: 4505261201649725891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,5 +350,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.6067934, z: 1}
+  m_Center: {x: 0, y: 0.30339655, z: 0}

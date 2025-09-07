@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 5d78e1bf59ed4a548b5a4d1e736aadac
+  m_SerializeEntries:
+  - m_GUID: 0e254118ee5865e4fa54bdda536a517e
+    m_Address: Assets/_Project/Scriptable/Placement/Stand.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - placement
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e95e777edba61144b2c06bcf708342b
+    m_Address: Assets/_Project/Scriptable/Placement/Fountain.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - placement
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0fa356d5404e214488291e03369d59dd
+    m_Address: Assets/_Project/Scriptable/Items/Sphere.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10d2c587593242b41a6ced4cf2ce2e05
+    m_Address: Assets/_Project/Scriptable/Items/Gem2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18be06448d286c642b8a41f3551ae500
+    m_Address: Assets/_Project/Scriptable/Items/Feather.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b17b6fccd78f5645949309a2c108c33
+    m_Address: Assets/_Project/Scriptable/Items/Gem3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a0bf66068d8d1041a02f5a0ea9e7efb
+    m_Address: Assets/_Project/Scriptable/Items/Gem1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ab240cbb00dce64d8dd88df7db2cdcd
+    m_Address: Assets/_Project/Scriptable/Items/Egg.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ce89337627aee040a16b24c6962c4e1
+    m_Address: Assets/_Project/Scriptable/Items/PlacementItems/Stand.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 881c19572459e8f448d1bd385382fa5e
+    m_Address: Assets/_Project/Scriptable/Items/Cube.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab9bbff818f212c4c8040b2286d8b4cf
+    m_Address: Assets/_Project/Scriptable/Items/Cylinder.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d32f081e8b5fe284aacaf3e31604be5a
+    m_Address: Assets/_Project/Scriptable/Items/PlacementItems/Fountain.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - item
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 43a35cbe5e7ae6343b6a60fd45fbf8a8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 55e7238445ff99742a543b6e8f3a8824, type: 2}
+    - {fileID: 11400000, guid: c720259e11cddce4eae12eeb19bbb300, type: 2}

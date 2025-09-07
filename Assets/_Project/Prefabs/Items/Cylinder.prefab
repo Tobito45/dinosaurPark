@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1517749739423434083}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: StandPlacment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 4611686990061480901}
   - component: {fileID: 6576712473471880293}
   - component: {fileID: 1399231840708340185}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: InputField (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1512054725466981181}
   - component: {fileID: 5819633313286968148}
   - component: {fileID: 7125246895280185798}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4139699262251273081}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 5025173275513269465}
   - component: {fileID: 7958073099641758544}
   - component: {fileID: 2679181079049739111}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 7926252205792841319}
   - component: {fileID: 6281701400688622893}
   - component: {fileID: 5607700928494166755}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 7956279261479822021}
   - component: {fileID: 1079072554585612464}
   - component: {fileID: 6028983387321522440}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,7 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2151333335566481606}
   - component: {fileID: 2204649975906228478}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 3820286514022837545}
   - component: {fileID: 3998870000627597626}
   - component: {fileID: 3773859856384143500}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stand (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1002,7 +1002,7 @@ GameObject:
   - component: {fileID: 5151914368482415481}
   - component: {fileID: 4527669434359298178}
   - component: {fileID: 1879605691310162058}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1144,7 +1144,8 @@ GameObject:
   - component: {fileID: 7979934247341965341}
   - component: {fileID: 2102029542159819912}
   - component: {fileID: 812470874424662069}
-  m_Layer: 0
+  - component: {fileID: 3277985548563764547}
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1237,12 +1238,12 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 1.0283264
+  m_Height: 2.0566528
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: -0.056706548, y: 0, z: -0.00000008940697}
 --- !u!114 &4676213155152883351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,6 +1373,27 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!65 &3277985548563764547
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8407682056873584212}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5338044, y: 2, z: 1.0000002}
+  m_Center: {x: 0.024075508, y: 0, z: -0.00000008940697}
 --- !u!1001 &3872339045555939757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1432,6 +1454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pedestal
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 77de00c28772d1943babbc874e00f1c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1467,7 +1493,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.011384999, y: 0.011249999, z: 0.011474999}
   m_Center: {x: 0, y: 0.000000014901161, z: 0}

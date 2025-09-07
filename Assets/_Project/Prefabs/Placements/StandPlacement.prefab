@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5371970717425825625}
-  - component: {fileID: 9089094092380055933}
   - component: {fileID: 6940612164159270673}
   - component: {fileID: 7001937843590860231}
+  - component: {fileID: 3966641553398755527}
   m_Layer: 6
   m_Name: StandPlacment
   m_TagString: Untagged
@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8977077040763536334}
+  - {fileID: 8880949186844865223}
   - {fileID: 6935755483869724648}
   - {fileID: 5025642760070901080}
   - {fileID: 7330580947931571115}
@@ -40,31 +41,6 @@ Transform:
   - {fileID: 4406021091124108302}
   m_Father: {fileID: 2344532179265556320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9089094092380055933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289707757415932130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 511628435
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &6940612164159270673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,6 +58,7 @@ MonoBehaviour:
   _collider: {fileID: 7001937843590860231}
   _text: {fileID: 8056863326097912195}
   _hoverMat: {fileID: 2100000, guid: 3deef8cf46365b244a8baebd4dff4f71, type: 2}
+  Point: {fileID: 8880949186844865223}
 --- !u!135 &7001937843590860231
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -103,6 +80,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 1.02, z: 0}
+--- !u!208 &3966641553398755527
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289707757415932130}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.165, y: 0.56, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1872277770773032480
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +110,7 @@ GameObject:
   - component: {fileID: 7451499723570290854}
   - component: {fileID: 5985585470343165543}
   - component: {fileID: 1986437466540895389}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +247,7 @@ GameObject:
   - component: {fileID: 4419436873767204558}
   - component: {fileID: 4108097204854286012}
   - component: {fileID: 8944267273633770686}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +384,7 @@ GameObject:
   - component: {fileID: 5992865419498812709}
   - component: {fileID: 5599987293153384598}
   - component: {fileID: 8056863326097912195}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: InputField (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,6 +559,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2344532179265556320}
+  - component: {fileID: 5071881860804358107}
   m_Layer: 0
   m_Name: StandPlacement
   m_TagString: Untagged
@@ -589,6 +583,31 @@ Transform:
   - {fileID: 5371970717425825625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5071881860804358107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322407838278706309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 593584981
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &5399287588399921243
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,7 +937,7 @@ GameObject:
   - component: {fileID: 2132393401146927925}
   - component: {fileID: 1873509755514750009}
   - component: {fileID: 7484868111302798953}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,6 +1082,37 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &7237808807373507682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8880949186844865223}
+  m_Layer: 0
+  m_Name: Stand
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8880949186844865223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7237808807373507682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.81, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5371970717425825625}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8202146194539455093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6369989130500239867}
   - component: {fileID: 17601601457527160}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1315,7 +1365,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.011384999, y: 0.011249999, z: 0.011474999}
   m_Center: {x: 0, y: 0.000000014901161, z: 0}

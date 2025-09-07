@@ -8,7 +8,6 @@ namespace Placement
     {
         public Placement SelectedPlacement { get; private set; }
 
-
         public void SelectItem(Placement placement) => SelectedPlacement = placement;
 
         public void DeselectItem() => SelectedPlacement = null;

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7425255820590682853}
   - component: {fileID: 1299170238200955122}
   - component: {fileID: 9186863439710051375}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CubeDrag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725c251ccecc29442a31316dc39454ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   grabRange: 2
   holdDistance: 1
   dragSpeed: 2
-  holdPoint: {fileID: 0}

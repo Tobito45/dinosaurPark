@@ -4,9 +4,9 @@ namespace Inventory
 {
     public interface IPlaceItem
     {
-        public bool CheckIfCanPlaceItem(int id);
-        public void PlaceItem(int id);
-        public void OnHoverEnter(int id);
+        public bool CheckIfCanPlaceItem(string id);
+        public void PlaceItem(string id);
+        public void OnHoverEnter(string id);
         public void OnHoverExit();
     }
 }

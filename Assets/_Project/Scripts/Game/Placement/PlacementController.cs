@@ -1,15 +1,20 @@
+using Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 namespace Placement
 {
-    public class PlacementController : MonoBehaviour
+    public class PlacementController : NetworkBehaviour
     {
         [Header("References")]
         [SerializeField]
         private PlacementSelecter _placementSelecter;
+        private PlayerInventoryController _playerInventoryController;
 
         [Header("Scene References")]
         [SerializeField]
@@ -34,7 +39,10 @@ namespace Placement
         private void Update()
         {
             if (playerCamera == null)
+            {
                 playerCamera = GameClientsNerworkInfo.Singleton.MainPlayer?.MainCamere;
+                _playerInventoryController = GameClientsNerworkInfo.Singleton.MainPlayer?.GetComponent<PlayerInventoryController>();
+            }
 
             //if (Input.GetKeyDown(KeyCode.P))
             //{
@@ -82,9 +90,21 @@ namespace Placement
 
         private void PlaceItem(Transform point)
         {
-            Instantiate(_placementSelecter.SelectedPlacement.Prefab, point.position, Quaternion.identity);
-            //_placementSelecter.DeselectItem();
+            Debug.Log(PlacementLibrary.GetItem(_placementSelecter.SelectedPlacement.PlacmentName).Prefab.name);
+
+            SpawnPlacementItemRPC(point.position.x, point.position.y, point.position.z, _placementSelecter.SelectedPlacement.PlacmentName);
+            _placementSelecter.DeselectItem();
             _lastSelected = null;
+            _playerInventoryController.DropItem();
+            Disable();
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SpawnPlacementItemRPC(float x, float y, float z, string item)
+        {
+            Debug.Log(item);
+            var obj = Instantiate(PlacementLibrary.GetItem(item).Prefab, new Vector3(x,y,z), Quaternion.identity);
+            obj.Spawn();
         }
 
         private void ResetLastSelected()

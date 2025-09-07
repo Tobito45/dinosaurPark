@@ -52,10 +52,13 @@ namespace Inventory
         {
             _list[index].Image.color = itemLibrary.Color;
             _list[index].ActualItem = itemLibrary;
+            if(index == _currectSelected)
+                _list[index].ActualItem?.OnSelect();
         }
 
         public void ResetItem(int index)
         {
+            _list[index].ActualItem?.OnDeselect();
             _list[index].Image.color = _list[index].BaseColor;
             _list[index].ActualItem = null;
         }

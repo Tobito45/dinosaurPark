@@ -7,10 +7,10 @@ namespace Museum
 {
     public class MuseumController : MonoBehaviour
     {
-        [SerializeField]
+        //[SerializeField]
         private List<Stand> _stands = new();
 
-        [SerializeField]
+        //[SerializeField]
         private List<Transform> _standsWaypoints = new();
 
         public Vector3? GetRandomFullStand(Vector3? last)
@@ -29,6 +29,12 @@ namespace Museum
             int index = Random.Range(0, fulls.Count);
 
             return _standsWaypoints[fulls[index]].transform.position;
+        }
+
+        public void AddNewStand(Stand stand)
+        {
+            _stands.Add(stand);
+            _standsWaypoints.Add(stand.Point);
         }
     }
 }

@@ -82,6 +82,7 @@ MonoBehaviour:
   _collider: {fileID: 7001937843590860231}
   _text: {fileID: 8056863326097912195}
   _hoverMat: {fileID: 2100000, guid: 3deef8cf46365b244a8baebd4dff4f71, type: 2}
+  Point: {fileID: 0}
 --- !u!135 &7001937843590860231
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -115,6 +116,7 @@ GameObject:
   - component: {fileID: 2454836600570908293}
   - component: {fileID: 283700210389709924}
   - component: {fileID: 4532182560515518841}
+  - component: {fileID: 3529580764576359950}
   m_Layer: 0
   m_Name: Museum Statue
   m_TagString: Untagged
@@ -213,6 +215,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4761827900915784749, guid: 70ff88aab4b1221468cf1f198d0bdfbc, type: 3}
+--- !u!208 &3529580764576359950
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299109975486114597}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.010000001, y: 0.010000001, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1872277770773032480
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2344532179265556320}
+  - component: {fileID: 496406662811856397}
   m_Layer: 0
   m_Name: StandFountain
   m_TagString: Untagged
@@ -701,6 +720,31 @@ Transform:
   - {fileID: 5371970717425825625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &496406662811856397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322407838278706309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3166001363
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &5399287588399921243
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Library;
 using NUnit.Framework;
 using System.Drawing;
 using System.Globalization;
@@ -19,7 +20,7 @@ namespace Inventory
         [SerializeField]
         private NetworkObject _prefabSumon;
         [SerializeField]
-        private LayerMask summonLayerMask;
+        private LayerMask summonLayerMask, pickupLayerMask, interactLayerMask;
 
         [Header("References")]
         [SerializeField]
@@ -30,7 +31,7 @@ namespace Inventory
 
         private IPlaceItem _lastHoveredItem;
         private IInteractable _lastHoveredInteractable;
-        private int[] _items = new int[MAX_INVENTAR_COUNT];
+        private string[] _items = new string[MAX_INVENTAR_COUNT];
         private int _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
         private void Start()
@@ -41,7 +42,7 @@ namespace Inventory
             _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
             for (int i = 0; i < _items.Length; i++)
-                _items[i] = BASIC_INDEX_NOT_SELECTED;
+                _items[i] = string.Empty;
         }
 
         private void Update()
@@ -150,33 +151,35 @@ namespace Inventory
         private ItemPickup RaycastToPickUp()
         {
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, pickupLayerMask))
+            {
                 if (hit.collider.TryGetComponent<ItemPickup>(out var item))
                 {
-                    _itemPickUpInfoShower.ActivePanelPick(item.Item);
+                    _itemPickUpInfoShower.ActivePanelPick(InventoryItemsLibrary.GetItem(item.Item.ItemName));
                     return item;
                 }
 
+            }
             _itemPickUpInfoShower.DeactivePanel();
             return null;
         }
 
         private void TryPickupItem(ItemPickup item)
         {
-            if (PutItemToList(item.Item))
+            if (PutItemToList(item.Item.ItemName))
                 RequestPickupRpc(item.NetworkObject);
         }
 
-        private bool PutItemToList(InventoryItemLibrary item)
+        private bool PutItemToList(string id)
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
             {
-                for(int i = 0; i < _items.Length; i++)
+                for (int i = 0; i < _items.Length; i++)
                 {
-                    if (_items[i] == BASIC_INDEX_NOT_SELECTED)
+                    if (_items[i] == string.Empty)
                     {
-                        _items[i] = item.Index;
-                        _inventoryUIController.PutItem(i, item);
+                        _items[i] = id;
+                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id));
                         return true;
                     }
                 }
@@ -184,43 +187,51 @@ namespace Inventory
             }
             else
             {
-                if (_items[_selectedItem] != BASIC_INDEX_NOT_SELECTED)
+                if (_items[_selectedItem] != string.Empty)
                 {
                     for (int i = 0; i < _items.Length; i++)
                     {
-                        if (_items[i] == BASIC_INDEX_NOT_SELECTED)
+                        Debug.Log(_items[i]);
+                        if (_items[i] == string.Empty)
                         {
-                            _items[i] = item.Index;
-                            _inventoryUIController.PutItem(i, item);
+                            _items[i] = id;
+                            _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id));
                             return true;
                         }
                     }
                     return false;
                 }
-                    
-                    
 
-                _items[_selectedItem] = item.Index;
-                _inventoryUIController.PutItem(_selectedItem, item);
+
+
+                _items[_selectedItem] = id;
+                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetItem(id));
                 return true;
             }
         }
 
-        private (bool removed, int id) RemoveItemFromList()
+        private (bool removed, string id) RemoveItemFromList()
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
-                return (false, BASIC_INDEX_NOT_SELECTED);
+                return (false, string.Empty);
 
-            int savedId = _items[_selectedItem];
-            _items[_selectedItem] = BASIC_INDEX_NOT_SELECTED;
+            string savedId = _items[_selectedItem];
+            _items[_selectedItem] = string.Empty;
             _inventoryUIController.ResetItem(_selectedItem);
             return (true, savedId);
+        }
+
+        public void DropItem()
+        {
+            Debug.Log(_selectedItem);
+            _items[_selectedItem] = string.Empty;
+            _inventoryUIController.ResetItem(_selectedItem);
         }
 
 
         private (IPlaceItem obj, Vector3? point) RaycastToSummonItem()
         {
-            if (_selectedItem == BASIC_INDEX_NOT_SELECTED || _items[_selectedItem] == BASIC_INDEX_NOT_SELECTED)
+            if (_selectedItem == BASIC_INDEX_NOT_SELECTED || _items[_selectedItem] == string.Empty)
                 return (null, null);
 
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
@@ -232,10 +243,10 @@ namespace Inventory
                     if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem]))
                         return (null, null);
 
-                    _itemPickUpInfoShower.ActivePanelPlace(InventoryItemsLibrary.GetIInventoryItem(_items[_selectedItem]));
+                    _itemPickUpInfoShower.ActivePanelPlace(InventoryItemsLibrary.GetItem(_items[_selectedItem]));
                     placeItem.OnHoverEnter(_items[_selectedItem]);
                     return (placeItem, hit.point);
-                    
+
                 }
                 else
                     return (null, hit.point);
@@ -247,7 +258,7 @@ namespace Inventory
             if (obj == null && point == null)
                 return;
 
-            if(obj != null)
+            if (obj != null)
             {
                 var resultObj = RemoveItemFromList();
                 obj.OnHoverExit();
@@ -256,6 +267,7 @@ namespace Inventory
             }
 
             var result = RemoveItemFromList();
+
             if (result.removed)
                 RequestSummonRpc(point.Value.x, 1, point.Value.z, result.id);
 
@@ -266,7 +278,7 @@ namespace Inventory
         public IInteractable RaycastToInteract()
         {
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange, interactLayerMask))
                 if (hit.collider.TryGetComponent<IInteractable>(out var item))
                 {
                     if (!item.CanBeInteracted())
@@ -292,16 +304,19 @@ namespace Inventory
             if (itemRef.TryGet(out NetworkObject netObj))
             {
                 var item = netObj.GetComponent<ItemPickup>();
+
                 if (item != null)
                     item.Pickup(OwnerClientId);
             }
         }
 
         [Rpc(SendTo.Server)]
-        private void RequestSummonRpc(float x, float y, float z, int id)
+        private void RequestSummonRpc(float x, float y, float z, string id)
         {
-            var item = Instantiate(InventoryItemsLibrary.GetIInventoryItem(id).NetworkObject, new Vector3(x, y, z), Quaternion.identity);
+            var item = Instantiate(InventoryItemsLibrary.GetItem(id).NetworkObject, new Vector3(x, y, z), Quaternion.identity);
             item.Spawn();
         }
     }
 }
+
+
