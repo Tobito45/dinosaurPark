@@ -698,7 +698,8 @@ MonoBehaviour:
   _body: {fileID: 7648266141810485057}
   _underGround: {fileID: 2091391057144971185}
   _canvas: {fileID: 4991457184822474913}
-  _characterMovement: {fileID: 1609638286098760025}
+  <CharacterMovement>k__BackingField: {fileID: 1609638286098760025}
+  <PlayerInventoryController>k__BackingField: {fileID: 5585000388310170860}
   _playerCamera: {fileID: 4968376664985321511}
   _nickName: {fileID: 8612953248519667522}
 --- !u!114 &5585000388310170860

@@ -170,7 +170,7 @@ namespace Inventory
                 RequestPickupRpc(item.NetworkObject);
         }
 
-        private bool PutItemToList(string id)
+        public bool PutItemToList(string id)
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
             {

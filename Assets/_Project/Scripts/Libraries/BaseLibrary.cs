@@ -11,8 +11,13 @@ namespace Library
     {
         protected static Dictionary<string, T> _dictionary = new();
 
+        public static IEnumerable<T> GetItems() => _dictionary.Values;
         public static T GetItem(string name)
             => _dictionary.TryGetValue(name, out var item) ? item : throw new System.Exception("Error id");
+
+        public static bool IsExistitsItem(string name)
+            => _dictionary.ContainsKey(name);
+
 
         protected static void Initialize(string group)
         {

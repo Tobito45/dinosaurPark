@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Character;
 using Inventory;
+using Library;
 using NPC;
 using TMPro;
 using UnityEditor;
@@ -83,7 +85,11 @@ public class CheatConsole : MonoBehaviour
     void GiveItem(string[] args)
     {
         if (args.Length < 1) { Log("Usage: give <item>"); return; }
-        Log($"Gave player {args[0]}!");
+
+        if (Spawner.AddItemToPlayer(args[0]))
+            Log($"Gave player {args[0]}!");
+        else
+            Log($"Item {args[0]} not exists");
     }
     // Player can spawn item in his coord on head
     void SpawnItem(string[] args)
@@ -93,8 +99,11 @@ public class CheatConsole : MonoBehaviour
         switch (args[0])
         {
             case "item":
-                Log("Spawn next item: " + args[1]);
-                break;
+                if (Spawner.SpawnItemOnPlayersPosition(args[1]))
+                    Log("Spawn next item: " + args[1]);
+                else
+                    Log($"item {args[1]} not exists");
+                    break;
             case "mob":
                 Log("Spawn next mob: " + args[1]);
                 break;
@@ -116,7 +125,7 @@ public class CheatConsole : MonoBehaviour
                 break;
             case "npc":
                 NPCController[] npcs = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
-                var player = GameClientsNerworkInfo.Singleton.MainPlayer;
+                CharacterMovement player = GameClientsNerworkInfo.Singleton.MainPlayer.CharacterMovement;
                 
                 foreach (var npc in npcs)
                 {
@@ -126,16 +135,7 @@ public class CheatConsole : MonoBehaviour
                     {
                         Log("Found NPC: " + npcName);
 
-                        var controller = player.GetComponent<CharacterController>();
-
-                        // Disable controller so it doesn’t override position
-                        controller.enabled = false;
-
-                        // Teleport
-                        player.transform.position = npc.transform.position + Vector3.up * 1f; // small offset to avoid ground clipping
-
-                        // Re-enable controller
-                        controller.enabled = true;
+                        player.TeleportToPoint(npc.transform.position + Vector3.up * 1f);
 
                         return;
                     }
@@ -181,7 +181,7 @@ public class CheatConsole : MonoBehaviour
     //NEED to a list of player
     void ListObjectsMap(string[] args)
     {
-        List<string> stringsTypes = new List<string> { "players", "npcs" };
+        List<string> stringsTypes = new List<string> { "players", "npcs", "items" };
         if (args.Length < 1) { Log("Usage: list <" + string.Join("/", stringsTypes) + ">"); return; }
 
         switch (args[0])
@@ -190,9 +190,15 @@ public class CheatConsole : MonoBehaviour
                 NPCController[] npcs = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
                 int counter = 0;
                 foreach (var npc in npcs)
-                {
                     Log("NPC " + counter++ + ":" + npc.GetNPCInfo().Name);
-                }
+                
+                break;
+            case "items":
+                int counterItem = 0;
+
+                foreach (var item in InventoryItemsLibrary.GetItems())
+                    Log("Item " + counterItem++ + ":" + item.Key);
+
                 break;
         }
     }

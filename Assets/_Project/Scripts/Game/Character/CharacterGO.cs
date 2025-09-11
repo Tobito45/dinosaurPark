@@ -1,3 +1,4 @@
+using Inventory;
 using Steamworks;
 using System.Collections;
 using TMPro;
@@ -12,8 +13,11 @@ namespace Character
         [SerializeField]
         private GameObject _body, _underGround, _canvas;
 
-        [SerializeField]
-        private CharacterMovement _characterMovement;
+        [field:SerializeField]
+        public CharacterMovement CharacterMovement { get; private set; }
+
+        [field: SerializeField]
+        public PlayerInventoryController PlayerInventoryController { get; private set; }
 
         [SerializeField]
         private Camera _playerCamera;
@@ -30,6 +34,7 @@ namespace Character
 
             if (!IsOwner)
                 NotOwnerInit();
+
         }
 
         private void NotOwnerInit()
@@ -48,6 +53,8 @@ namespace Character
             GameClientsNerworkInfo.Singleton.CharacterPermissions.SetBasePermissions();
             _body.SetActive(false);
             _nickName.gameObject.SetActive(false);
+
+            PlayerInventoryController = GetComponent<PlayerInventoryController>();
         }
 
         private IEnumerator SetDataAfter()
@@ -55,12 +62,6 @@ namespace Character
             yield return new WaitForSeconds(1);
             _nickName.text = GameClientsNerworkInfo.Singleton.GetPlayer(OwnerClientId).name;
             enabled = false;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.I))
-                Debug.Log(GameClientsNerworkInfo.Singleton.ToString());
         }
     }
 }

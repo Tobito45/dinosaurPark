@@ -95,9 +95,13 @@ namespace Character
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
         }
-        bool IsGroundedCustom()
+        private bool IsGroundedCustom() => Physics.Raycast(transform.position, Vector3.down, out _, 1.1f);
+
+        public void TeleportToPoint(Vector3 newPos)
         {
-            return Physics.Raycast(transform.position, Vector3.down, out _, 1.1f);
+            controller.enabled = false;
+            gameObject.transform.position = newPos;
+            controller.enabled = true;
         }
     }
 }

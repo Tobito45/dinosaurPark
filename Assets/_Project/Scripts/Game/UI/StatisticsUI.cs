@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NPC;
 using TMPro;
 using Unity.Netcode;
@@ -22,13 +23,13 @@ namespace GameUI
 
         private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0, _countAll = 0;
 
-        private void Start()
+
+        public void OnEnable()
         {
             _textCountNegative.text = _countNegative.ToString();
             _textCountMiddle.text = _countMiddle.ToString();
             _textCountPozitive.text = _countPozitive.ToString();
             _textCountAll.text = _countAll.ToString();
-            //TODO values to stat
             GenerateListNPCScroll();
         }
 
@@ -85,6 +86,7 @@ namespace GameUI
         private void GenerateListNPCScroll()
         {
             NPCController[] npcs = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
+            Debug.Log(npcs.Count());
             foreach (var npc in npcs)
             {
                 GameObject newItem = Instantiate(_prefabNPCItem, _scrollNPCItems.transform);

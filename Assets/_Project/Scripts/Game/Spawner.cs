@@ -1,5 +1,7 @@
+using Library;
 using System.Linq;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : NetworkBehaviour
@@ -22,5 +24,34 @@ public class Spawner : NetworkBehaviour
                 item.Spawn();
             }
         }
+    }
+
+    public static bool SpawnItemOnPlayersPosition(string name)
+    {
+        if (!InventoryItemsLibrary.IsExistitsItem(name))
+            return false;
+
+        var camera = GameClientsNerworkInfo.Singleton.MainPlayer.MainCamere.transform;
+        var spawnPos = camera.position + camera.forward * 1.2f;
+
+        FindAnyObjectByType<Spawner>().SpawnFromServerRPC(name, spawnPos);
+        return true;
+    }
+
+
+    [Rpc(SendTo.Server)]
+    public void SpawnFromServerRPC(string itemName, Vector3 pos)
+    {
+        var libItem = InventoryItemsLibrary.GetItem(itemName);
+        var item = Instantiate(libItem.NetworkObject, pos, Quaternion.identity);
+        item.Spawn();
+    }
+
+    public static bool AddItemToPlayer(string name)
+    {
+        if (!InventoryItemsLibrary.IsExistitsItem(name))
+            return false;
+
+        return GameClientsNerworkInfo.Singleton.MainPlayer.PlayerInventoryController.PutItemToList(name);
     }
 }
