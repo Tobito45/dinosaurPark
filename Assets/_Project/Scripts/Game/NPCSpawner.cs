@@ -1,9 +1,10 @@
+using Bootstrap;
 using GameUI;
 using NPC;
 using Unity.Netcode;
 using UnityEngine;
 
-public class NPCSpawner : NetworkBehaviour
+public class NPCSpawner : NetworkBehaviour, IInit
 {
     [Header("References")]
     [SerializeField]
@@ -19,7 +20,6 @@ public class NPCSpawner : NetworkBehaviour
     [SerializeField]
     private Transform[] _spawnPoints;
 
-    private void Start() => SpawnNPCs();
 
     private void SpawnNPCs()
     {
@@ -36,4 +36,5 @@ public class NPCSpawner : NetworkBehaviour
         }
     }
 
+    public void Init() => SpawnNPCs();
 }

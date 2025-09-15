@@ -92,19 +92,31 @@ namespace Placement
         {
             Debug.Log(PlacementLibrary.GetItem(_placementSelecter.SelectedPlacement.PlacmentName).Prefab.name);
 
-            SpawnPlacementItemRPC(point.position.x, point.position.y, point.position.z, _placementSelecter.SelectedPlacement.PlacmentName);
+            SpawnPlacementItemRPC(point.position, _placementSelecter.SelectedPlacement.PlacmentName);
             _placementSelecter.DeselectItem();
+
+            foreach (PlacementInfo info in _lastSelected)
+                ReservePointRPC(info.gameObject.transform.position);
+
             _lastSelected = null;
             _playerInventoryController.DropItem();
             Disable();
         }
 
         [Rpc(SendTo.Server)]
-        private void SpawnPlacementItemRPC(float x, float y, float z, string item)
+        private void SpawnPlacementItemRPC(Vector3 vector3, string item)
         {
             Debug.Log(item);
-            var obj = Instantiate(PlacementLibrary.GetItem(item).Prefab, new Vector3(x,y,z), Quaternion.identity);
+            var obj = Instantiate(PlacementLibrary.GetItem(item).Prefab, vector3, Quaternion.identity);
             obj.Spawn();
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void ReservePointRPC(Vector3 vector3)
+        {
+            if (_places[vector3].IsOcucupied)
+                _lastSelected = null;
+            _places[vector3].IsOcucupied = true;
         }
 
         private void ResetLastSelected()

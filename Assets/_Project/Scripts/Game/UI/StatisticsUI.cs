@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bootstrap;
 using NPC;
 using TMPro;
 using Unity.Netcode;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 namespace GameUI
 {
-    public class StatisticsUI : NetworkBehaviour
+    public class StatisticsUI : MonoBehaviour, IInit
     {
         [SerializeField]
         private TextMeshProUGUI _textCountNegative, _textCountMiddle, _textCountPozitive, _textCountAll;
@@ -23,8 +24,7 @@ namespace GameUI
 
         private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0, _countAll = 0;
 
-
-        public void OnEnable()
+        public void Init()
         {
             _textCountNegative.text = _countNegative.ToString();
             _textCountMiddle.text = _countMiddle.ToString();
@@ -128,6 +128,7 @@ namespace GameUI
             // Text Count Positive
             text[3].text = "" + positive;
         }
+
     }
     public class SpawnedItem
     {

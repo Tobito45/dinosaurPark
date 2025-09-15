@@ -269,7 +269,7 @@ namespace Inventory
             var result = RemoveItemFromList();
 
             if (result.removed)
-                RequestSummonRpc(point.Value.x, 1, point.Value.z, result.id);
+                RequestSummonRpc(point.Value.x, point.Value.y + 0.5f, point.Value.z, result.id);
 
             return;
         }
