@@ -19,3 +19,15 @@ MonoBehaviour:
   <Color>k__BackingField:
     serializedVersion: 2
     rgba: 4288444194
+  ItemRarityPriority:
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: 40
+  - <Key>k__BackingField: 1
+    <Value>k__BackingField: 60
+  <ItemQualityGenerated>k__BackingField: 0
+  <Era>k__BackingField: 0
+  <ItemTypes>k__BackingField: 02000000
+  ConditionMinMax:
+    min: 10
+    max: 50
+  <ConditionQuality>k__BackingField: 0
