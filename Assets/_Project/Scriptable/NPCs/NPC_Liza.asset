@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9693b2ee2d8d46458a6bd034e3fb24c, type: 3}
+  m_Name: NPC_Liza
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Kokot
+  <Skin>k__BackingField: 0
+  <Money>k__BackingField: 0
+  <Priorty>k__BackingField: 10
+  _way: 060000000b00000004000000080000000d00000009000000000000000a00000000000000
+  _itemTypePriority:
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: 30
+  - <Key>k__BackingField: 1
+    <Value>k__BackingField: 80
+  - <Key>k__BackingField: 2
+    <Value>k__BackingField: 30
+  - <Key>k__BackingField: 3
+    <Value>k__BackingField: 30
+  - <Key>k__BackingField: 4
+    <Value>k__BackingField: 50
+  - <Key>k__BackingField: 5
+    <Value>k__BackingField: 80
+  ItemEraPriority:
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: 70
+  - <Key>k__BackingField: 1
+    <Value>k__BackingField: 30
+  ItemRarityPriority:
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: 25
+  - <Key>k__BackingField: 1
+    <Value>k__BackingField: 50
+  - <Key>k__BackingField: 2
+    <Value>k__BackingField: 75
+  - <Key>k__BackingField: 3
+    <Value>k__BackingField: 100
+  <ConditionPriority>k__BackingField: 90
