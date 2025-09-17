@@ -156,7 +156,7 @@ namespace Inventory
             {
                 if (hit.collider.TryGetComponent<ItemPickup>(out var item))
                 {
-                    _itemPickUpInfoShower.ActivePanelPick(InventoryItemsLibrary.GetItem(item.Item.ItemName));
+                    _itemPickUpInfoShower.ActivePanelPick(item.RuntimeInfo);
                     return item;
                 }
 
@@ -241,7 +241,7 @@ namespace Inventory
                     if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem].Name))
                         return (null, null);
 
-                    _itemPickUpInfoShower.ActivePanelPlace(InventoryItemsLibrary.GetItem(_items[_selectedItem].Name));
+                    _itemPickUpInfoShower.ActivePanelPlace(_items[_selectedItem]);
                     placeItem.OnHoverEnter(_items[_selectedItem].Name);
                     return (placeItem, hit.point);
 

@@ -14,15 +14,15 @@ public class ItemPickUpInfoShower : MonoBehaviour
     private TextMeshProUGUI _text;
 
 
-    public void ActivePanelPick(InventoryItemLibrary item)
+    public void ActivePanelPick(ItemRuntimeInfo item)
     {
         _panel.SetActive(true);
-        _text.text = item.ItemName + _baseTextPick;
+        _text.text = item.Name + _baseTextPick;
     }
-    public void ActivePanelPlace(InventoryItemLibrary item)
+    public void ActivePanelPlace(ItemRuntimeInfo item)
     {
         _panel.SetActive(true);
-        _text.text = item.ItemName + _baseTextPlace;
+        _text.text = item.Name + _baseTextPlace;
     }
 
     public void ActivePanelInteract(string item)
