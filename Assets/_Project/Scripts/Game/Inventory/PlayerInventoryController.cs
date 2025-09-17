@@ -180,7 +180,7 @@ namespace Inventory
                     if (_items[i] == null)
                     {
                         _items[i] = id;
-                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name));
+                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name), id);
                         return true;
                     }
                 }
@@ -196,17 +196,15 @@ namespace Inventory
                         if (_items[i] == null)
                         {
                             _items[i] = id;
-                            _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name));
+                            _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name), id);
                             return true;
                         }
                     }
                     return false;
                 }
 
-
-
                 _items[_selectedItem] = id;
-                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetItem(id.Name));
+                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetItem(id.Name), id);
                 return true;
             }
         }

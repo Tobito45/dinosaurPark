@@ -48,10 +48,11 @@ namespace Inventory
             _list[index].ActualItem?.OnDeselect();
         }
 
-        public void PutItem(int index, InventoryItemLibrary itemLibrary)
+        public void PutItem(int index, InventoryItemLibrary itemLibrary, ItemRuntimeInfo info)
         {
             _list[index].Image.color = itemLibrary.Color;
             _list[index].ActualItem = itemLibrary;
+            _list[index].InfoItem = info;
             if(index == _currectSelected)
                 _list[index].ActualItem?.OnSelect();
         }
@@ -61,6 +62,7 @@ namespace Inventory
             _list[index].ActualItem?.OnDeselect();
             _list[index].Image.color = _list[index].BaseColor;
             _list[index].ActualItem = null;
+            _list[index].InfoItem = null;
         }
     }
 
@@ -73,6 +75,8 @@ namespace Inventory
         [field: SerializeField]
         public InventoryItemLibrary ActualItem { get; set; }
 
+        [field: SerializeField]
+        public ItemRuntimeInfo InfoItem { get; set; }
 
         [field: SerializeField]
         public Image Image { get ; private set; }
