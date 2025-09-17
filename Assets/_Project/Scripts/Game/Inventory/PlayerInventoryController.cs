@@ -31,7 +31,7 @@ namespace Inventory
 
         private IPlaceItem _lastHoveredItem;
         private IInteractable _lastHoveredInteractable;
-        private string[] _items = new string[MAX_INVENTAR_COUNT];
+        private ItemRuntimeInfo[] _items = new ItemRuntimeInfo[MAX_INVENTAR_COUNT];
         private int _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
         private void Start()
@@ -42,7 +42,7 @@ namespace Inventory
             _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
             for (int i = 0; i < _items.Length; i++)
-                _items[i] = string.Empty;
+                _items[i] = null;
         }
 
         private void Update()
@@ -118,6 +118,7 @@ namespace Inventory
                     else
                     {
                         _selectedItem = i;
+                        Debug.Log(_items[_selectedItem].Condition + " " + _items[_selectedItem].ItemRarityEnum);
                         _lastHoveredItem?.OnHoverExit();
                         _inventoryUIController.SelectItem(_selectedItem);
                     }
@@ -166,20 +167,20 @@ namespace Inventory
 
         private void TryPickupItem(ItemPickup item)
         {
-            if (PutItemToList(item.Item.ItemName))
+            if (PutItemToList(item.RuntimeInfo))
                 RequestPickupRpc(item.NetworkObject);
         }
 
-        public bool PutItemToList(string id)
+        public bool PutItemToList(ItemRuntimeInfo id)
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
             {
                 for (int i = 0; i < _items.Length; i++)
                 {
-                    if (_items[i] == string.Empty)
+                    if (_items[i] == null)
                     {
                         _items[i] = id;
-                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id));
+                        _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name));
                         return true;
                     }
                 }
@@ -187,15 +188,15 @@ namespace Inventory
             }
             else
             {
-                if (_items[_selectedItem] != string.Empty)
+                if (_items[_selectedItem] != null)
                 {
                     for (int i = 0; i < _items.Length; i++)
                     {
                         Debug.Log(_items[i]);
-                        if (_items[i] == string.Empty)
+                        if (_items[i] == null)
                         {
                             _items[i] = id;
-                            _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id));
+                            _inventoryUIController.PutItem(i, InventoryItemsLibrary.GetItem(id.Name));
                             return true;
                         }
                     }
@@ -205,33 +206,32 @@ namespace Inventory
 
 
                 _items[_selectedItem] = id;
-                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetItem(id));
+                _inventoryUIController.PutItem(_selectedItem, InventoryItemsLibrary.GetItem(id.Name));
                 return true;
             }
         }
 
-        private (bool removed, string id) RemoveItemFromList()
+        private (bool removed, ItemRuntimeInfo id) RemoveItemFromList()
         {
             if (_selectedItem == BASIC_INDEX_NOT_SELECTED)
-                return (false, string.Empty);
+                return (false, null);
 
-            string savedId = _items[_selectedItem];
-            _items[_selectedItem] = string.Empty;
+            ItemRuntimeInfo savedId = _items[_selectedItem];
+            _items[_selectedItem] = null;
             _inventoryUIController.ResetItem(_selectedItem);
             return (true, savedId);
         }
 
         public void DropItem()
         {
-            Debug.Log(_selectedItem);
-            _items[_selectedItem] = string.Empty;
+            _items[_selectedItem] = null;
             _inventoryUIController.ResetItem(_selectedItem);
         }
 
 
         private (IPlaceItem obj, Vector3? point) RaycastToSummonItem()
         {
-            if (_selectedItem == BASIC_INDEX_NOT_SELECTED || _items[_selectedItem] == string.Empty)
+            if (_selectedItem == BASIC_INDEX_NOT_SELECTED || _items[_selectedItem] == null)
                 return (null, null);
 
             Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
@@ -240,11 +240,11 @@ namespace Inventory
                 IPlaceItem placeItem = hit.collider.GetComponent<IPlaceItem>();
                 if (placeItem != null)
                 {
-                    if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem]))
+                    if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem].Name))
                         return (null, null);
 
-                    _itemPickUpInfoShower.ActivePanelPlace(InventoryItemsLibrary.GetItem(_items[_selectedItem]));
-                    placeItem.OnHoverEnter(_items[_selectedItem]);
+                    _itemPickUpInfoShower.ActivePanelPlace(InventoryItemsLibrary.GetItem(_items[_selectedItem].Name));
+                    placeItem.OnHoverEnter(_items[_selectedItem].Name);
                     return (placeItem, hit.point);
 
                 }
@@ -262,14 +262,14 @@ namespace Inventory
             {
                 var resultObj = RemoveItemFromList();
                 obj.OnHoverExit();
-                obj.PlaceItem(resultObj.id);
+                obj.PlaceItem(resultObj.id.Name);
                 return;
             }
 
             var result = RemoveItemFromList();
 
             if (result.removed)
-                RequestSummonRpc(point.Value.x, point.Value.y + 0.5f, point.Value.z, result.id);
+                RequestSummonRpc(point.Value + new Vector3(0, 0.5f, 0), result.id);
 
             return;
         }
@@ -311,10 +311,11 @@ namespace Inventory
         }
 
         [Rpc(SendTo.Server)]
-        private void RequestSummonRpc(float x, float y, float z, string id)
+        private void RequestSummonRpc(Vector3 vector3, ItemRuntimeInfo info)
         {
-            var item = Instantiate(InventoryItemsLibrary.GetItem(id).NetworkObject, new Vector3(x, y, z), Quaternion.identity);
+            var item = Instantiate(InventoryItemsLibrary.GetItem(info.Name).NetworkObject, vector3, Quaternion.identity);
             item.Spawn();
+            item.GetComponent<ItemPickup>().ActualizateInfoForEveryoneRPC(info);
         }
     }
 }

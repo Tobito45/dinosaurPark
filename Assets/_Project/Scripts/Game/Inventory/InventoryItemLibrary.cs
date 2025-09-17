@@ -1,8 +1,9 @@
 
-using System.Collections.Generic;
 using ConstantLibrary;
 using Library;
 using NPC;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -70,6 +71,26 @@ public class InventoryItemLibrary : ScriptableObject, ILibraryKey
     {
         ConditionQuality = Random.Range(ConditionMinMax.min, ConditionMinMax.max);
     }
+
+    public float GetRandomQuality() => Random.Range(ConditionMinMax.min, ConditionMinMax.max);
+
+    public ItemRarityEnum GetRandomRarity()
+    {
+        float total = ItemRarityPriority.Sum(r => r.Value);
+
+        float randomPoint = Random.Range(0f, total);
+
+        float current = 0f;
+        foreach (var rarity in ItemRarityPriority)
+        {
+            current += rarity.Value;
+            if (randomPoint <= current)
+                return rarity.Key;
+        }
+
+        return ItemRarityPriority.Last().Key;
+    }
+
 }
 [System.Serializable]
 internal struct MinMax

@@ -73,6 +73,7 @@ namespace Inventory
         [field: SerializeField]
         public InventoryItemLibrary ActualItem { get; set; }
 
+
         [field: SerializeField]
         public Image Image { get ; private set; }
 

@@ -1,5 +1,7 @@
 using Bootstrap;
+using Inventory;
 using Library;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -22,9 +24,10 @@ public class Spawner : NetworkBehaviour, IInit
         {
             for (int i = 0; i < _countDinoworld; i++)
             {
-                var item = Instantiate(_itemsDinoworld[Random.Range(0, _itemsDinoworld.Count())],
+                var item = Instantiate(SpawnItems(),
                     new Vector3(Random.Range(_minDinoworldX, _maxDinoworldX), _height, Random.Range(_minDinoworldZ, _maxDinoworldZ)), Quaternion.identity);
                 item.Spawn();
+                item.GetComponent<ItemPickup>().CreateNewInfo();
             }
 
             for (int i = 0; i < _countPlacement; i++)
@@ -32,8 +35,26 @@ public class Spawner : NetworkBehaviour, IInit
                 var item = Instantiate(_itemsPlacement[Random.Range(0, _itemsPlacement.Count())],
                     new Vector3(Random.Range(_minPlacementX, _maxPlacementX), _height, Random.Range(_minPlacementZ, _maxPlacementZ)), Quaternion.identity);
                 item.Spawn();
+                item.GetComponent<ItemPickup>().CreateNewInfo();
             }
         }
+    }
+
+    private NetworkObject SpawnItems()
+    {
+        float totalWeight = _itemsDinoworld.Sum(i => i.GetComponent<ItemPickup>().Item.ChanceSpawn);
+
+       float roll = UnityEngine.Random.Range(0, totalWeight);
+            float cumulative = 0f;
+
+            foreach (var item in _itemsDinoworld)
+            {
+                cumulative += item.GetComponent<ItemPickup>().Item.ChanceSpawn;
+                if (roll <= cumulative)
+                   return item;
+            }
+
+        return null;
     }
 
     public static bool SpawnItemOnPlayersPosition(string name)
@@ -62,7 +83,9 @@ public class Spawner : NetworkBehaviour, IInit
         if (!InventoryItemsLibrary.IsExistitsItem(name))
             return false;
 
-        return GameClientsNerworkInfo.Singleton.MainPlayer.PlayerInventoryController.PutItemToList(name);
+        var item = InventoryItemsLibrary.GetItem(name);
+        ItemRuntimeInfo info = new ItemRuntimeInfo(item.ItemName, item.GetRandomQuality(), item.GetRandomRarity());
+        return GameClientsNerworkInfo.Singleton.MainPlayer.PlayerInventoryController.PutItemToList(info);
     }
 
 }

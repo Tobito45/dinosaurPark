@@ -7,16 +7,14 @@ using UnityEngine;
 using ConstantLibrary;
 using NPC;
 
-public class CalculatingScore : NetworkBehaviour
+public static class CalculatingScore
 {
-    private readonly float w_type = 0.4f;
-    private readonly float w_rarity = 0.2f;
+    private static readonly float w_type = 0.4f;
+    private static readonly float w_rarity = 0.2f;
+    private static readonly float w_era = 0.2f;
+    private static readonly float w_condition = 0.2f;
 
-    private readonly float w_era = 0.2f;
-
-    private readonly float w_condition = 0.2f;
-
-    public string GetReactEmotion(NPCInfo npc, InventoryItemLibrary item)
+    public static string GetReactEmotion(NPCInfo npc, InventoryItemLibrary item)
     {
 
         // EXAMPLE
@@ -45,21 +43,15 @@ public class CalculatingScore : NetworkBehaviour
 
         float score = CalculateScore(npc, item);
         if (score < 33)
-        {
             return ReactionsEnum.Negative.ToString();
-
-        }
         else if (score <= 66)
-        {
             return ReactionsEnum.Middle.ToString();
-        }
         else
-        {
             return ReactionsEnum.Positive.ToString();
-        }
     }
+
     //NPC, ITEM
-    public float CalculateScore(NPCInfo npc, InventoryItemLibrary item)
+    public static float CalculateScore(NPCInfo npc, InventoryItemLibrary item)
     {
 
         // Type score: среднее по всем типам (0 если тип не в словаре)

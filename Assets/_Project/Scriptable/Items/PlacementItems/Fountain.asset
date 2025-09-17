@@ -19,4 +19,13 @@ MonoBehaviour:
   <Color>k__BackingField:
     serializedVersion: 2
     rgba: 2813736494
+  ItemRarityPriority:
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: 1
+  <Era>k__BackingField: 1
+  <ItemTypes>k__BackingField: 
+  ConditionMinMax:
+    min: 0
+    max: 0
+  <ChanceSpawn>k__BackingField: 1
   item: {fileID: 11400000, guid: 0e95e777edba61144b2c06bcf708342b, type: 2}
