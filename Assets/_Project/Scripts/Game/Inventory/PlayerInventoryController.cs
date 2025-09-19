@@ -156,7 +156,7 @@ namespace Inventory
             {
                 if (hit.collider.TryGetComponent<ItemPickup>(out var item))
                 {
-                    _itemPickUpInfoShower.ActivePanelPick(item.RuntimeInfo);
+                    _itemPickUpInfoShower.ActivePanelPick(item.RuntimeInfo, item.Item);
                     return item;
                 }
 
