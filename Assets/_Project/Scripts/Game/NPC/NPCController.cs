@@ -90,8 +90,6 @@ namespace NPC
 
         private void OnComeToMuseum()
         {
-            Debug.Log(_info.Name + " in museum");
-
             if(_countLook == -1)
             {
                 _watchedFirstTimeDirtyFlag = true;
@@ -139,7 +137,7 @@ namespace NPC
         {
             _waiting = true;
             if(_isInMuseum)
-                _emotions.ShowEmogi();
+                _emotions.ShowEmogi(_info, _museumController.GetStandByPos(_agent.destination.x, _agent.destination.z).Info);
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(2,5));
             _waiting = false;
