@@ -238,11 +238,11 @@ namespace Inventory
                 IPlaceItem placeItem = hit.collider.GetComponent<IPlaceItem>();
                 if (placeItem != null)
                 {
-                    if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem].Name))
+                    if (!placeItem.CheckIfCanPlaceItem(_items[_selectedItem]))
                         return (null, null);
 
                     _itemPickUpInfoShower.ActivePanelPlace(_items[_selectedItem]);
-                    placeItem.OnHoverEnter(_items[_selectedItem].Name);
+                    placeItem.OnHoverEnter(_items[_selectedItem]);
                     return (placeItem, hit.point);
 
                 }
@@ -260,7 +260,7 @@ namespace Inventory
             {
                 var resultObj = RemoveItemFromList();
                 obj.OnHoverExit();
-                obj.PlaceItem(resultObj.id.Name);
+                obj.PlaceItem(resultObj.id);
                 return;
             }
 

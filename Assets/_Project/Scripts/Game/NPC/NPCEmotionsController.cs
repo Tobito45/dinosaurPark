@@ -32,9 +32,9 @@ namespace NPC
 
         public void StartWatching() => OnStartWatch?.Invoke();
 
-        public void ShowEmogi()
+        public void ShowEmogi(NPCInfo info, ItemRuntimeInfo item)
         {
-            int index = UnityEngine.Random.Range(0, _emothions.Count);
+            int index = (int)CalculatingScore.GetReactEmotion(info, item);//UnityEngine.Random.Range(0, _emothions.Count);
             ShowEmogiRPC(index);
         }
 

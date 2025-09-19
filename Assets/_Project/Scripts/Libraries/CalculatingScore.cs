@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using ConstantLibrary;
 using NPC;
+using Library;
 
 public static class CalculatingScore
 {
@@ -14,7 +15,7 @@ public static class CalculatingScore
     private static readonly float w_era = 0.2f;
     private static readonly float w_condition = 0.2f;
 
-    public static string GetReactEmotion(NPCInfo npc, InventoryItemLibrary item)
+    public static ReactionsEnum GetReactEmotion(NPCInfo npc, ItemRuntimeInfo item)
     {
 
         // EXAMPLE
@@ -43,34 +44,34 @@ public static class CalculatingScore
 
         float score = CalculateScore(npc, item);
         if (score < 33)
-            return ReactionsEnum.Negative.ToString();
+            return ReactionsEnum.Negative;
         else if (score <= 66)
-            return ReactionsEnum.Middle.ToString();
+            return ReactionsEnum.Middle;
         else
-            return ReactionsEnum.Positive.ToString();
+            return ReactionsEnum.Positive;
     }
 
     //NPC, ITEM
-    public static float CalculateScore(NPCInfo npc, InventoryItemLibrary item)
+    public static float CalculateScore(NPCInfo npc, ItemRuntimeInfo item)
     {
 
         // Type score: среднее по всем типам (0 если тип не в словаре)
         float typeScore = 0f;
-        foreach (var type in item.ItemTypes)
+        foreach (var type in InventoryItemsLibrary.GetItem(item.Name).ItemTypes)
         {
             typeScore += npc.IsTypePrioretyContainsKey(type) ? npc.GetTypePrioretyByEnunName(type) : 0f;
         }
-        typeScore /= item.ItemTypes.Count;
+        typeScore /= InventoryItemsLibrary.GetItem(item.Name).ItemTypes.Count;
         Debug.Log("TYPE SCORE:" + typeScore);
 
         // Rarity score
-        float rarityScore = npc.IsRarityPrioretyContainsKey(item.ItemQualityGenerated) ? npc.GetRarityPrioretyByEnunName(item.ItemQualityGenerated) : 0f;
+        float rarityScore = npc.IsRarityPrioretyContainsKey(item.ItemRarityEnum) ? npc.GetRarityPrioretyByEnunName(item.ItemRarityEnum) : 0f;
         Debug.Log("rarityScore:" + rarityScore);
         // Era score
-        float eraScore = npc.IsEraPrioretyContainsKey(item.Era) ? npc.GetEraPrioretyByEnunName(item.Era) : 0f;
+        float eraScore = npc.IsEraPrioretyContainsKey(InventoryItemsLibrary.GetItem(item.Name).Era) ? npc.GetEraPrioretyByEnunName(InventoryItemsLibrary.GetItem(item.Name).Era) : 0f;
         Debug.Log("eraScore:" + eraScore);
         // Condition score
-        float conditionScore = item.ConditionQuality / 100f * npc.ConditionPriority;
+        float conditionScore = item.Condition / 100f * npc.ConditionPriority;
         Debug.Log("conditionScore:" + conditionScore);
         // Общий score с весами: 0.4 type, 0.2 rarity, 0.2 era, 0.2 condition
         float score = (w_type * typeScore) + (w_rarity * rarityScore) + (w_era * eraScore) + (w_condition * conditionScore);

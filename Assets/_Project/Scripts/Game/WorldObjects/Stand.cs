@@ -20,9 +20,10 @@ public class Stand : NetworkBehaviour, IPlaceItem
 
     private NetworkObject _placed;
     public NetworkObject Placed => _placed;
+    public ItemRuntimeInfo Info => _placed.GetComponent<ItemPickup>().RuntimeInfo;
     private GameObject _hovered;
 
-    public bool CheckIfCanPlaceItem(string id) => _placed == null;
+    public bool CheckIfCanPlaceItem(ItemRuntimeInfo id) => _placed == null;
 
 
     public override void OnNetworkSpawn()
@@ -42,33 +43,34 @@ public class Stand : NetworkBehaviour, IPlaceItem
         }
     }
 
-    public void PlaceItem(string id) => RequestSummonRpc(id);
+    public void PlaceItem(ItemRuntimeInfo info) => RequestSummonRpc(info);
 
     [Rpc(SendTo.Server)]
-    private void RequestSummonRpc(string id)
+    private void RequestSummonRpc(ItemRuntimeInfo info)
     {
-        var item = Instantiate(InventoryItemsLibrary.GetItem(id).NetworkObject, _target.position, Quaternion.identity);
+        var item = Instantiate(InventoryItemsLibrary.GetItem(info.Name).NetworkObject, _target.position, Quaternion.identity);
         item.Spawn();
-        SetEveryonePlacedRpc(item, id);
+        SetEveryonePlacedRpc(item, info);
     }
 
     [Rpc(SendTo.Everyone)]
-    private void SetEveryonePlacedRpc(NetworkObjectReference itemRef, string id)
+    private void SetEveryonePlacedRpc(NetworkObjectReference itemRef, ItemRuntimeInfo info)
     {
         if (itemRef.TryGet(out NetworkObject netObj))
         {
             _placed = netObj;
             _collider.enabled = false;
-            _text.text = InventoryItemsLibrary.GetItem(id).ItemName;
+            _text.text = InventoryItemsLibrary.GetItem(info.Name).ItemName;
+            netObj.GetComponent<ItemPickup>().RuntimeInfo = info;
         }
     }
 
-    public void OnHoverEnter(string id)
+    public void OnHoverEnter(ItemRuntimeInfo id)
     {
         if (_hovered != null)
             return;
 
-        _hovered = Instantiate(InventoryItemsLibrary.GetItem(id).NetworkObject, _target.position, Quaternion.identity).gameObject;
+        _hovered = Instantiate(InventoryItemsLibrary.GetItem(id.Name).NetworkObject, _target.position, Quaternion.identity).gameObject;
 
         foreach (var colider in _hovered.GetComponentsInChildren<Collider>())
             colider.enabled = false;
