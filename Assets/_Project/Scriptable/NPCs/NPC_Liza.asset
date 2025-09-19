@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9693b2ee2d8d46458a6bd034e3fb24c, type: 3}
   m_Name: NPC_Liza
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Kokot
+  <Name>k__BackingField: Liza
   <Skin>k__BackingField: 0
   <Money>k__BackingField: 0
   <Priorty>k__BackingField: 10
