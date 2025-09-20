@@ -23,8 +23,13 @@ public class Stand : NetworkBehaviour, IPlaceItem
     public ItemRuntimeInfo Info => _placed.GetComponent<ItemPickup>().RuntimeInfo;
     private GameObject _hovered;
 
-    public bool CheckIfCanPlaceItem(ItemRuntimeInfo id) => _placed == null;
-
+    public bool CheckIfCanPlaceItem(ItemRuntimeInfo id)
+    {
+        if (InventoryItemsLibrary.GetItem(id.Name) is InventoryPlacementItemLibrary)
+            return false;
+        
+        return _placed == null;
+    }
 
     public override void OnNetworkSpawn()
     {

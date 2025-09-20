@@ -15,7 +15,7 @@ public class StandTextChanger : NetworkBehaviour, IInteractable
 
     private bool _isInEditingMode;
 
-    public bool CanBeInteracted() => !_stand.CheckIfCanPlaceItem(null);
+    public bool CanBeInteracted() => _stand.Placed != null;
 
     public string GetInteractText() => "Rename";
 

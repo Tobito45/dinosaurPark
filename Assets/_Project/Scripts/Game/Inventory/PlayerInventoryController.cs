@@ -118,7 +118,6 @@ namespace Inventory
                     else
                     {
                         _selectedItem = i;
-                        Debug.Log(_items[_selectedItem].Condition + " " + _items[_selectedItem].ItemRarityEnum);
                         _lastHoveredItem?.OnHoverExit();
                         _inventoryUIController.SelectItem(_selectedItem);
                     }

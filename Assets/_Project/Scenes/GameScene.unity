@@ -14,8 +14,8 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.6901961, g: 0.76862746, b: 0.87058824, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -1373,10 +1373,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4934739dcb03cff49b626ce6b1706a59, type: 2}
   - {fileID: 11400000, guid: 9e6b0855641396440a5d24bbcad33647, type: 2}
   - {fileID: 11400000, guid: 4bd627b3e6f15c74ca6a118e988da307, type: 2}
+  - {fileID: 11400000, guid: 06e3cf32c3af7a546931a9aa8b20c4ae, type: 2}
   _spawnPoints:
   - {fileID: 2017520582}
   - {fileID: 1471980872}
   - {fileID: 157415417}
+  - {fileID: 1533660067}
 --- !u!1 &105340960
 GameObject:
   m_ObjectHideFlags: 0

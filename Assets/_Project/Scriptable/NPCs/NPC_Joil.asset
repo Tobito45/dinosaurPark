@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9693b2ee2d8d46458a6bd034e3fb24c, type: 3}
   m_Name: NPC_Joil
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Lox228
-  <Skin>k__BackingField: 4
+  <Name>k__BackingField: Joil
+  <Skin>k__BackingField: 2
   <Money>k__BackingField: 0
-  <Priorty>k__BackingField: 10
+  <Priorty>k__BackingField: 15
   _way: 04000000070000000a0000000000000003000000
   _itemTypePriority:
   - <Key>k__BackingField: 0

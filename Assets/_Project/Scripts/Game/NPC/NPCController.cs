@@ -136,7 +136,7 @@ namespace NPC
         public IEnumerator Waiter()
         {
             _waiting = true;
-            if(_isInMuseum)
+            if(_isInMuseum && _museumController.GetStandByPos(_agent.destination.x, _agent.destination.z).Placed)
                 _emotions.ShowEmogi(_info, _museumController.GetStandByPos(_agent.destination.x, _agent.destination.z).Info);
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(2,5));

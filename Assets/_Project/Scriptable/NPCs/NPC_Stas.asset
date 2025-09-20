@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NPC_Stas
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Stas
-  <Skin>k__BackingField: 2
+  <Skin>k__BackingField: 3
   <Money>k__BackingField: 0
   <Priorty>k__BackingField: 30
   _way: 070000000c000000040000000600000003000000010000000800000000000000020000000b0000000d000000
