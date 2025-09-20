@@ -12,8 +12,8 @@ public static class CalculatingScore
 {
     private static readonly float w_type = 0.4f;
     private static readonly float w_rarity = 0.2f;
-    private static readonly float w_era = 0.2f;
-    private static readonly float w_condition = 0.2f;
+    private static readonly float w_era = 0.3f;
+    private static readonly float w_condition = 0.1f;
 
     public static ReactionsEnum GetReactEmotion(NPCInfo npc, ItemRuntimeInfo item)
     {
