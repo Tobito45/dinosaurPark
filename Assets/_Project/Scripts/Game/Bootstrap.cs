@@ -15,7 +15,6 @@ namespace Bootstrap
         {
             _bootstrap.ForEach(bootstrap =>
             {
-                Debug.Log("Wtd");
                 IInit init = bootstrap.GetComponent<IInit>();
 
                 if(init == null)
