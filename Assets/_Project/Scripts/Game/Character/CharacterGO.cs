@@ -1,4 +1,4 @@
-using Inventory;
+  using Inventory;
 using Steamworks;
 using System.Collections;
 using TMPro;
@@ -64,4 +64,4 @@ namespace Character
             enabled = false;
         }
     }
-}
+} 
