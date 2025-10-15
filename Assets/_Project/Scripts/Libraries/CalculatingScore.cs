@@ -7,6 +7,7 @@ using UnityEngine;
 using ConstantLibrary;
 using NPC;
 using Library;
+using System.Linq;
 
 public static class CalculatingScore
 {
@@ -43,12 +44,51 @@ public static class CalculatingScore
 
 
         float score = CalculateScore(npc, item);
-        if (score < 33)
-            return ReactionsEnum.Negative;
-        else if (score <= 66)
-            return ReactionsEnum.Middle;
-        else
-            return ReactionsEnum.Positive;
+
+        //float score = Mathf.Clamp(CalculateScore(npc, item), 0f, 100f);
+        if (score > 100)
+            score = 100f;
+        float rnd = UnityEngine.Random.Range(0f, 1f);
+
+        // Центры зон
+        float[] centers = { 10f, 30f, 50f, 70f, 90f };
+        // Ширина размытия (чем больше — тем плавнее переход)
+        float spread = 20f;
+
+        // Вычисляем "вес" каждой зоны по гауссовой кривой
+        float[] weights = new float[5];
+        for (int i = 0; i < centers.Length; i++)
+        {
+            float diff = (score - centers[i]) / spread;
+            weights[i] = Mathf.Exp(-diff * diff); // e^(-x²)
+        }
+        Debug.Log("Weights:" + string.Join("|", weights));
+        // Нормализуем, чтобы сумма = 1
+        float sum = weights.Sum();
+        for (int i = 0; i < weights.Length; i++)
+            weights[i] /= sum;
+        Debug.Log("Weights after sum:" + string.Join("|", weights));
+        // Выбираем реакцию по весам
+        float cumulative = rnd;
+
+
+        Debug.Log("Cumulative:" + cumulative);
+        if ((cumulative -= weights[0]) < 0) return ReactionsEnum.StronglyNegative;
+        if ((cumulative -= weights[1]) < 0) return ReactionsEnum.Negative;
+        if ((cumulative -= weights[2]) < 0) return ReactionsEnum.Middle;
+        if ((cumulative -= weights[3]) < 0) return ReactionsEnum.Positive;
+        return ReactionsEnum.StronglyPositive;
+        // Basic method
+        // if (score < 20)
+        //     return ReactionsEnum.StronglyNegative;
+        // else if (score <= 40)
+        //     return ReactionsEnum.Negative;
+        // else if (score <= 60)
+        //     return ReactionsEnum.Middle;
+        // else if (score <= 80)
+        //     return ReactionsEnum.Positive;
+        // else
+        //     return ReactionsEnum.StronglyPositive;
     }
 
     //NPC, ITEM
