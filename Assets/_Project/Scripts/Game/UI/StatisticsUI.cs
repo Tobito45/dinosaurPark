@@ -22,7 +22,7 @@ namespace GameUI
 
         private Dictionary<string, SpawnedItem> spawnedItemNPCScroll = new();
 
-        private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0, _countAll = 0;
+        private int _countNegative = 0, _countMiddle = 0, _countPozitive = 0, _countStronglyNegative = 0, _countStronglyPositive = 0, _countAll = 0;
 
         public void Init()
         {
@@ -56,6 +56,14 @@ namespace GameUI
                 case EmotionType.Angry:
                     _countNegative++;
                     item.CountNegative++;
+                    break;
+                case EmotionType.MoreAngry:
+                    _countStronglyNegative++;
+                    item.CountStronglyNegative++;
+                    break;
+                case EmotionType.MoreHappy:
+                    _countStronglyPositive++;
+                    item.CountStronglyPositive++;
                     break;
             }
             UpdateTextsRPC(_countMiddle, _countNegative, _countPozitive, _countAll);
@@ -101,7 +109,7 @@ namespace GameUI
             }
             UpdateNPCScrollItems();
         }
-        
+
         public void UpdateNPCScrollItems()
         {
             foreach (var itemNpc in spawnedItemNPCScroll)
@@ -112,21 +120,25 @@ namespace GameUI
         {
             SpawnedItem item = spawnedItemNPCScroll[name];
 
-            UpdateTextItem(item.UiObject, item.NpcObject.GetNPCInfo().Name, item.CountNegative, item.CountNeutral, item.CountPositive);
+            UpdateTextItem(item.UiObject, item.NpcObject.GetNPCInfo().Name, item.CountNegative, item.CountNeutral, item.CountPositive, item.CountStronglyNegative, item.CountStronglyPositive);
         }
 
-        private void UpdateTextItem(GameObject uiObject, string name, int negative = 0, int neutral = 0, int positive = 0)
+        private void UpdateTextItem(GameObject uiObject, string name, int negative = 0, int neutral = 0, int positive = 0, int stronglyNegative = 0, int stronglyPositive = 0)
         {
             //sick moment
             TMP_Text[] text = uiObject.GetComponentsInChildren<TMP_Text>();
             // Name
             text[0].text = name;
             // Text Count Negative
-            text[1].text = "" + negative;
+            text[1].text = "" + stronglyNegative;
+            // Text Count Negative
+            text[2].text = "" + negative;
             // Text Count Middle
-            text[2].text = "" + neutral;
+            text[3].text = "" + neutral;
             // Text Count Positive
-            text[3].text = "" + positive;
+            text[4].text = "" + positive;
+            // Text Count Strong Positive
+            text[5].text = "" + stronglyPositive;
         }
 
     }
@@ -144,5 +156,8 @@ namespace GameUI
         public int CountNegative { get; set; } = 0;
         public int CountPositive { get; set; } = 0;
         public int CountNeutral { get; set; } = 0;
+
+        public int CountStronglyNegative { get; set; } = 0;
+        public int CountStronglyPositive { get; set; } = 0;
     }
 }
