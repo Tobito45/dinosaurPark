@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,20 +97,29 @@ namespace Dinosaurus
                     break;
                 }
             }
-        }    
+        }
 
-        
+
+        private Coroutine _waitCorortine = null;
         private void OnDinoComeToPoint(DinosaurusController controller)
         {
-            if (_dinosauruses[controller] == DinoStatuses.Huntering)
+            if (_dinosauruses[controller] == DinoStatuses.Huntering || _waitCorortine != null)
                 return;
 
             DinoStatuses last = _dinosauruses[controller];
              _dinosauruses[controller] = DinoStatuses.OnPoint;
 
             if (GetCountDinoStatuses(DinoStatuses.OnPoint).all)
-                OnAllDinoOnPoint(last == DinoStatuses.Gathering);
+                _waitCorortine = StartCoroutine(WaiterOnPoint(last));
         }
+
+        private IEnumerator WaiterOnPoint(DinoStatuses last)
+        {
+            yield return new WaitForSeconds(5);
+            OnAllDinoOnPoint(last == DinoStatuses.Gathering);
+            _waitCorortine = null;
+        }
+
         private void OnDinoStartHuntering(DinosaurusController controller)
         {
             _dinosauruses[controller] = DinoStatuses.Huntering;

@@ -24,6 +24,13 @@ namespace Dinosaurus
         [SerializeField]
         private float _maxReachedPointDistance = 20f;
 
+        [Header("Animator")]
+        [SerializeField]
+        private Animator _animator;
+        [SerializeField]
+        private string _wait, _attack;
+
+
         public float ActualReachedPointDistance { get; private set; }
         public float TimerMarkIdle { get; private set; }
 
@@ -36,6 +43,7 @@ namespace Dinosaurus
         private GameObject _target;
 
         private float _startSpeed;
+        private float _startRunSpeed;
         private bool _isAttacked = false, _canAttack = false;
 
         private void Start()
@@ -45,6 +53,7 @@ namespace Dinosaurus
             ActualReachedPointDistance = UnityEngine.Random.Range(_minReachedPointDistance, _maxReachedPointDistance);
             _navMeshAgent.speed = UnityEngine.Random.Range(3.5f, 4.0f);
             _startSpeed = _navMeshAgent.speed;
+            _startRunSpeed = _animator.speed;
 
             _warningZone.OnEntityEnter += OnWarningZoneEnter;
             _warningZone.OnEntityExit += OnWarningZoneExit;
@@ -58,13 +67,6 @@ namespace Dinosaurus
             GenerateMark();
         }
 
-        public Vector3? Distination()
-        {
-            if (_navMeshAgent.destination == null)
-                return null;
-
-            return _navMeshAgent.destination;
-        }
 
         private void GenerateMark() => TimerMarkIdle += UnityEngine.Random.Range(50, 100);
 
@@ -82,7 +84,19 @@ namespace Dinosaurus
         {
             _isAnimaton = true;
             _navMeshAgent.isStopped = true;
-            yield return new WaitForSeconds(3);
+            _animator.SetBool("Wait", true);
+
+            while(true)
+            {
+                var info = _animator.GetCurrentAnimatorStateInfo(0);
+
+                if (info.IsName(_wait) && info.normalizedTime > 0.9f)
+                    break;
+
+                yield return null;
+            }
+
+            _animator.SetBool("Wait", false);
             TimerMarkIdle += 3;
             _navMeshAgent.isStopped = false;
             _isAnimaton = false;
@@ -93,10 +107,22 @@ namespace Dinosaurus
         {
             if (_navMeshAgent.destination != null &&
                     !_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= ActualReachedPointDistance && _target == null)
+            {
+                _animator.SetBool("Run", false);
                 OnEnterThePoint?.Invoke(this);
+            }else
+            {
+                Debug.Log("Kek");
+                _animator.SetBool("Run", true);
+            }
+            //    Debug.Log(_navMeshAgent.velocity);
+            //if (_navMeshAgent.velocity.sqrMagnitude > 0.1)
+            //    _animator.SetBool("Run", true);
+            //else
+            //    _animator.SetBool("Run", false);
 
             if (_timerWaring >= 0)
-               _timerWaring += Time.deltaTime;
+                _timerWaring += Time.deltaTime;
 
             if (_target != null)
             {
@@ -113,8 +139,20 @@ namespace Dinosaurus
         {
             _isAttacked = true;
             _navMeshAgent.isStopped = true;
+            _animator.SetBool("Attack", true);
             Debug.Log("Attack from " + gameObject.name);
-            yield return new WaitForSeconds(3f);
+
+            while (true)
+            {
+                var info = _animator.GetCurrentAnimatorStateInfo(0);
+
+                if (info.IsName(_attack) && info.normalizedTime > 0.9f)
+                    break;
+
+                yield return null;
+            }
+
+            _animator.SetBool("Attack", false);
             _navMeshAgent.isStopped = false;
             _isAttacked = false;
         }
@@ -132,6 +170,7 @@ namespace Dinosaurus
 
             _navMeshAgent.destination = _target.transform.position;
             _navMeshAgent.speed = 1;
+            _animator.speed = 0.5f;
         }
 
         private void OnWarningZoneExit(GameObject player)
@@ -142,6 +181,7 @@ namespace Dinosaurus
             _timerWaring = -1;
             OnEndHuntering?.Invoke(this);
             _navMeshAgent.speed = _startSpeed;
+            _animator.speed = _startRunSpeed;
             _target = null;
         }
 
@@ -152,6 +192,7 @@ namespace Dinosaurus
                 _timerWaring = -1;
                 _navMeshAgent.destination = _target.transform.position;
                 _navMeshAgent.speed = _startSpeed;
+                _animator.speed = _startRunSpeed;
             }
         }
 
