@@ -109,8 +109,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Coelophysis Armature|Coelophysis Idle
-      takeName: Coelophysis Armature|Coelophysis Idle
+      name: Coelophysis Armature|Coelophysis Standing
+      takeName: Coelophysis Armature|Coelophysis Standing
       internalID: -7869837888076362858
       firstFrame: 0
       lastFrame: 55
