@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace Dinosaurus
         [Header("Settings")]
         [SerializeField]
         private int _count = 3;
+        [SerializeField]
+        private float _distanceToGather = 5;
 
          
         [Header("References")]
@@ -90,30 +93,36 @@ namespace Dinosaurus
                     continue;
 
                 float distance = Vector3.Distance(obj.transform.position, center);
-                if (distance > 5f)
+                if (distance > _distanceToGather)
                 {
                     SetAllDinoPointAndStatus(center, DinoStatuses.Gathering);
                     break;
                 }
             }
-        }    
+        }
 
-        
+
+        private Coroutine _waitCorortine = null;
         private void OnDinoComeToPoint(DinosaurusController controller)
         {
-            if (_dinosauruses[controller] == DinoStatuses.Huntering)
+            if (_dinosauruses[controller] == DinoStatuses.Huntering || _waitCorortine != null)
                 return;
 
             DinoStatuses last = _dinosauruses[controller];
              _dinosauruses[controller] = DinoStatuses.OnPoint;
 
             if (GetCountDinoStatuses(DinoStatuses.OnPoint).all)
-                OnAllDinoOnPoint(last == DinoStatuses.Gathering);
+                _waitCorortine = StartCoroutine(WaiterOnPoint(last));
         }
-        private void OnDinoStartHuntering(DinosaurusController controller)
+
+        private IEnumerator WaiterOnPoint(DinoStatuses last)
         {
-            _dinosauruses[controller] = DinoStatuses.Huntering;
+            yield return new WaitForSeconds(5);
+            OnAllDinoOnPoint(last == DinoStatuses.Gathering);
+            _waitCorortine = null;
         }
+
+        private void OnDinoStartHuntering(DinosaurusController controller) => _dinosauruses[controller] = DinoStatuses.Huntering;
         private void OnDinoEndHuntering(DinosaurusController controller)
         {
             _dinosauruses[controller] = DinoStatuses.Walked;
@@ -136,8 +145,6 @@ namespace Dinosaurus
         
         private void SetAllDinoPointAndStatus(Vector3 position, DinoStatuses status)
         {
-            
-
             foreach (DinosaurusController dinosaurusController in _dinosauruses.Keys.ToList())
             {
                 if (_dinosauruses[dinosaurusController] == DinoStatuses.Huntering)
