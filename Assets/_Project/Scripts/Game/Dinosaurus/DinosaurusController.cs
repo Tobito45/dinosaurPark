@@ -9,7 +9,7 @@ using UnityEngine.AI;
 namespace Dinosaurus
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class DinosaurusController : MonoBehaviour
+    public abstract class DinosaurusController : MonoBehaviour
     {
         [Header("Zones")]
         [SerializeField]
@@ -24,51 +24,58 @@ namespace Dinosaurus
         [SerializeField]
         private float _maxReachedPointDistance = 20f;
 
+        [SerializeField]
+        private float _minSpeed = 3.5f;
+        [SerializeField]
+        private float _maxSpeed = 4.0f;
+
+        [SerializeField]
+        private float _minTimeToWait = 50;
+        [SerializeField]
+        private float _maxTimeToWait = 100f;
+
+
         [Header("Animator")]
         [SerializeField]
-        private Animator _animator;
+        protected Animator _animator;
         [SerializeField]
         private string _wait, _attack;
-
-
+        
         public float ActualReachedPointDistance { get; private set; }
         public float TimerMarkIdle { get; private set; }
 
-        private NavMeshAgent _navMeshAgent;
-        private bool _isAnimaton;
+        protected NavMeshAgent _navMeshAgent;
+        protected bool _isAnimaton;
 
         public Action<DinosaurusController> OnEnterThePoint;
         public Action<DinosaurusController> OnStartHuntering;
         public Action<DinosaurusController> OnEndHuntering;
-        private GameObject _target;
+        protected GameObject _target;
 
-        private float _startSpeed;
-        private float _startRunSpeed;
-        private bool _isAttacked = false, _canAttack = false;
 
-        private void Start()
+        protected bool _isAttacked = false, _canAttack = false;
+
+        protected virtual void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
             ActualReachedPointDistance = UnityEngine.Random.Range(_minReachedPointDistance, _maxReachedPointDistance);
-            _navMeshAgent.speed = UnityEngine.Random.Range(3.5f, 4.0f);
-            _startSpeed = _navMeshAgent.speed;
-            _startRunSpeed = _animator.speed;
+            _navMeshAgent.speed = UnityEngine.Random.Range(_minSpeed, _maxSpeed);
 
             _warningZone.OnEntityEnter += OnWarningZoneEnter;
             _warningZone.OnEntityExit += OnWarningZoneExit;
 
             _redZone.OnEntityEnter += OnRedZoneEnter;
+            _redZone.OnEntityEnter += OnRedZoneExit;
 
             _attackZone.OnEntityEnter += OnAttackZoneEnter;
             _attackZone.OnEntityExit += OnAttackZoneExit;
-
 
             GenerateMark();
         }
 
 
-        private void GenerateMark() => TimerMarkIdle += UnityEngine.Random.Range(50, 100);
+        private void GenerateMark() => TimerMarkIdle += UnityEngine.Random.Range(_minTimeToWait, _maxTimeToWait);
 
         public bool IsTimerAfterMark(float time) => TimerMarkIdle < time;
 
@@ -91,13 +98,15 @@ namespace Dinosaurus
                 var info = _animator.GetCurrentAnimatorStateInfo(0);
 
                 if (info.IsName(_wait) && info.normalizedTime > 0.9f)
+                {
+                    TimerMarkIdle += info.length;
                     break;
+                }
 
                 yield return null;
             }
 
             _animator.SetBool("Wait", false);
-            TimerMarkIdle += 3;
             _navMeshAgent.isStopped = false;
             _isAnimaton = false;
             GenerateMark();
@@ -111,29 +120,17 @@ namespace Dinosaurus
                 _animator.SetBool("Run", false);
                 OnEnterThePoint?.Invoke(this);
             }else
-            {
-                Debug.Log("Kek");
                 _animator.SetBool("Run", true);
-            }
-            //    Debug.Log(_navMeshAgent.velocity);
-            //if (_navMeshAgent.velocity.sqrMagnitude > 0.1)
-            //    _animator.SetBool("Run", true);
-            //else
-            //    _animator.SetBool("Run", false);
-
-            if (_timerWaring >= 0)
-                _timerWaring += Time.deltaTime;
 
             if (_target != null)
             {
                 _navMeshAgent.destination = _target.transform.position;
-                if (_canAttack && !_isAttacked) //debug
+                if (_canAttack && !_isAttacked)
                     StartCoroutine(Attack());
             }
         }
         public void SetNextPoint(Transform point, Vector3 offset) => _navMeshAgent.SetDestination(point.position + offset);
         public void SetNextPoint(Vector3 point, Vector3 offset) => _navMeshAgent.SetDestination(point + offset);
-
 
         private IEnumerator Attack()
         {
@@ -158,51 +155,15 @@ namespace Dinosaurus
         }
 
 
-        private float _timerWaring = -1;
-        private void OnWarningZoneEnter(GameObject player)
-        {
-            if (_target != null)
-                return;
+        protected abstract void OnWarningZoneEnter(GameObject player);
 
-            _timerWaring = 0;
-            OnStartHuntering?.Invoke(this);
-            _target = player;
+        protected abstract void OnWarningZoneExit(GameObject player);
 
-            _navMeshAgent.destination = _target.transform.position;
-            _navMeshAgent.speed = 1;
-            _animator.speed = 0.5f;
-        }
+        protected abstract void OnRedZoneEnter(GameObject player);
+        protected abstract void OnRedZoneExit(GameObject player);
 
-        private void OnWarningZoneExit(GameObject player)
-        {
-            if (_target == null)
-                return;
+        protected abstract void OnAttackZoneEnter(GameObject player);
 
-            _timerWaring = -1;
-            OnEndHuntering?.Invoke(this);
-            _navMeshAgent.speed = _startSpeed;
-            _animator.speed = _startRunSpeed;
-            _target = null;
-        }
-
-        private void OnRedZoneEnter(GameObject player)
-        {
-            if (player == _target)
-            {
-                _timerWaring = -1;
-                _navMeshAgent.destination = _target.transform.position;
-                _navMeshAgent.speed = _startSpeed;
-                _animator.speed = _startRunSpeed;
-            }
-        }
-
-        private void OnAttackZoneEnter(GameObject player)
-        {
-            if (player == _target) _canAttack = true;
-        }
-        private void OnAttackZoneExit(GameObject player)
-        {
-            if (player == _target) _canAttack = false;
-        }
+        protected abstract void OnAttackZoneExit(GameObject player);
     }
 }

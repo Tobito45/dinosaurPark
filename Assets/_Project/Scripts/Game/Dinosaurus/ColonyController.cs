@@ -14,6 +14,8 @@ namespace Dinosaurus
         [Header("Settings")]
         [SerializeField]
         private int _count = 3;
+        [SerializeField]
+        private float _distanceToGather = 5;
 
          
         [Header("References")]
@@ -91,7 +93,7 @@ namespace Dinosaurus
                     continue;
 
                 float distance = Vector3.Distance(obj.transform.position, center);
-                if (distance > 5f)
+                if (distance > _distanceToGather)
                 {
                     SetAllDinoPointAndStatus(center, DinoStatuses.Gathering);
                     break;
@@ -120,10 +122,7 @@ namespace Dinosaurus
             _waitCorortine = null;
         }
 
-        private void OnDinoStartHuntering(DinosaurusController controller)
-        {
-            _dinosauruses[controller] = DinoStatuses.Huntering;
-        }
+        private void OnDinoStartHuntering(DinosaurusController controller) => _dinosauruses[controller] = DinoStatuses.Huntering;
         private void OnDinoEndHuntering(DinosaurusController controller)
         {
             _dinosauruses[controller] = DinoStatuses.Walked;
@@ -146,8 +145,6 @@ namespace Dinosaurus
         
         private void SetAllDinoPointAndStatus(Vector3 position, DinoStatuses status)
         {
-            
-
             foreach (DinosaurusController dinosaurusController in _dinosauruses.Keys.ToList())
             {
                 if (_dinosauruses[dinosaurusController] == DinoStatuses.Huntering)
