@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,7 +10,7 @@ using UnityEngine.AI;
 namespace Dinosaurus
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public abstract class DinosaurusController : MonoBehaviour
+    public abstract class DinosaurusController : NetworkBehaviour
     {
         [Header("Zones")]
         [SerializeField]
@@ -57,6 +58,9 @@ namespace Dinosaurus
 
         protected virtual void Start()
         {
+            if (!IsServer)
+                return;
+
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
             ActualReachedPointDistance = UnityEngine.Random.Range(_minReachedPointDistance, _maxReachedPointDistance);
@@ -66,7 +70,7 @@ namespace Dinosaurus
             _warningZone.OnEntityExit += OnWarningZoneExit;
 
             _redZone.OnEntityEnter += OnRedZoneEnter;
-            _redZone.OnEntityEnter += OnRedZoneExit;
+            _redZone.OnEntityExit += OnRedZoneExit;
 
             _attackZone.OnEntityEnter += OnAttackZoneEnter;
             _attackZone.OnEntityExit += OnAttackZoneExit;
@@ -114,6 +118,9 @@ namespace Dinosaurus
 
         private void Update()
         {
+            if (!IsServer)
+                return;
+
             if (_navMeshAgent.destination != null &&
                     !_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= ActualReachedPointDistance && _target == null)
             {

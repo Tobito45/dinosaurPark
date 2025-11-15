@@ -3,13 +3,14 @@ using Steamworks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 
 namespace Dinosaurus
 {
-    public class ColonyController : MonoBehaviour
+    public class ColonyController : NetworkBehaviour
     {
         [Header("Settings")]
         [SerializeField]
@@ -20,7 +21,7 @@ namespace Dinosaurus
          
         [Header("References")]
         [SerializeField]
-        private GameObject _prefab;
+        private NetworkObject _prefab;
 
         [SerializeField]
         private Transform _spawnPoint;
@@ -35,13 +36,18 @@ namespace Dinosaurus
 
         private void Start()
         {
+            if (!IsServer)
+                return;
+
             for (int i = 0; i < _count; i++)
             {
                 Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 4f;
                 Vector3 offset = new Vector3(randomCircle.x, 0, randomCircle.y);
 
-                GameObject obj = Instantiate(_prefab, _spawnPoint.position + offset, Quaternion.identity, transform);
-                DinosaurusController dinosaurusController = obj.GetComponent<DinosaurusController>();
+                NetworkObject networkObject = Instantiate(_prefab, _spawnPoint.position + offset, Quaternion.identity, transform);
+                networkObject.Spawn(true);
+
+                DinosaurusController dinosaurusController = networkObject.GetComponent<DinosaurusController>();
                 _dinosauruses.Add(dinosaurusController, DinoStatuses.Stand);
                 dinosaurusController.OnEnterThePoint += OnDinoComeToPoint;
                 dinosaurusController.OnStartHuntering += OnDinoStartHuntering;
@@ -57,6 +63,9 @@ namespace Dinosaurus
 
         private void Update()
         {
+            if (!IsServer)
+                return;
+
             UpdateTimer();
             UpdateDistance();
         }

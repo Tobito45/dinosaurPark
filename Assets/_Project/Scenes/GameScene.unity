@@ -4917,6 +4917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 510299531}
   - component: {fileID: 510299532}
+  - component: {fileID: 510299533}
   m_Layer: 0
   m_Name: Placerias
   m_TagString: Untagged
@@ -4952,9 +4953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45035aa43e74822458ce57c589a548f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _count: 5
   _distanceToGather: 10
-  _prefab: {fileID: 4336409340195128157, guid: da3802487acb9674cb256131864ec9b4, type: 3}
+  _prefab: {fileID: -2345425178080816110, guid: da3802487acb9674cb256131864ec9b4, type: 3}
   _spawnPoint: {fileID: 458605499}
   _points:
   - {fileID: 1403049096}
@@ -4975,6 +4977,31 @@ MonoBehaviour:
   - {fileID: 141542141}
   - {fileID: 1117979136}
   - {fileID: 2002670782}
+--- !u!114 &510299533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510299530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 597407910
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!64 &513276029
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5006,6 +5033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 514678965}
+  - component: {fileID: 514678967}
   - component: {fileID: 514678966}
   m_Layer: 0
   m_Name: Coelophysis
@@ -5042,9 +5070,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45035aa43e74822458ce57c589a548f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _count: 4
   _distanceToGather: 5
-  _prefab: {fileID: 4336409340195128157, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
+  _prefab: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
   _spawnPoint: {fileID: 1713795625}
   _points:
   - {fileID: 1815578205}
@@ -5055,6 +5084,31 @@ MonoBehaviour:
   - {fileID: 2099605735}
   - {fileID: 1535150453}
   - {fileID: 1799424347}
+--- !u!114 &514678967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514678964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1068538111
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &531749462
 GameObject:
   m_ObjectHideFlags: 0
@@ -21025,6 +21079,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1713795625}
     m_Modifications:
+    - target: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2993856290
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3653767673
+      objectReference: {fileID: 0}
     - target: {fileID: 3734781558931471713, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
