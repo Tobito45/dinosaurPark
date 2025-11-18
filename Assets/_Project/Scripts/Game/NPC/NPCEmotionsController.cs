@@ -57,5 +57,9 @@ namespace NPC
         Happy = 2,
         Sad = 0,
         Angry = 1,
+        MoreHappy = 3,
+        MoreAngry = 4,
+
+
     }
 }
