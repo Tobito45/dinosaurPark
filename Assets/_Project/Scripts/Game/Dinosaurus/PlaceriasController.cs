@@ -20,7 +20,6 @@ public class PlaceriasController : DinosaurusController
         if (_target != null)
             return;
 
-        Debug.Log("???");
         OnStartHuntering?.Invoke(this);
         _target = player;
         _timerWaring = -1;
@@ -31,7 +30,6 @@ public class PlaceriasController : DinosaurusController
         if (_target != player)
             return;
 
-        Debug.Log("???2");
         OnEndHuntering?.Invoke(this);
         _target = null;
     }

@@ -537,6 +537,7 @@ GameObject:
   - component: {fileID: 2646891293800244238}
   - component: {fileID: 5966708155839279306}
   - component: {fileID: 5585000388310170860}
+  - component: {fileID: 4614344509789044956}
   m_Layer: 0
   m_Name: Player
   m_TagString: Entity
@@ -700,6 +701,7 @@ MonoBehaviour:
   _canvas: {fileID: 4991457184822474913}
   <CharacterMovement>k__BackingField: {fileID: 1609638286098760025}
   <PlayerInventoryController>k__BackingField: {fileID: 5585000388310170860}
+  <HealthController>k__BackingField: {fileID: 4614344509789044956}
   _playerCamera: {fileID: 4968376664985321511}
   _nickName: {fileID: 8612953248519667522}
 --- !u!114 &5585000388310170860
@@ -729,6 +731,19 @@ MonoBehaviour:
     m_Bits: 512
   _inventoryUIController: {fileID: 5880948316407909172}
   _itemPickUpInfoShower: {fileID: 8297816814574888421}
+--- !u!114 &4614344509789044956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357592585005255544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6572bf50f2a55d74eb5e8ee954df643c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseHealth: 100
 --- !u!1 &1443928131659224903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,6 +2069,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2621418827701781407}
+  - {fileID: 2239784750125172933}
   - {fileID: 6962158842587778995}
   - {fileID: 3904755273302802227}
   m_Father: {fileID: 7681016968800827535}
@@ -3579,7 +3595,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -3982,6 +3998,95 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.5
+--- !u!1 &8463100344085690140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2239784750125172933}
+  - component: {fileID: 7375600005958807712}
+  - component: {fileID: 948298357359883092}
+  - component: {fileID: 3788848185323005119}
+  m_Layer: 0
+  m_Name: BloodScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2239784750125172933
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463100344085690140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7833517934038009277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7375600005958807712
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463100344085690140}
+  m_CullTransparentMesh: 1
+--- !u!114 &948298357359883092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463100344085690140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ae6c328cc9971b54fabf5fa843c88e7d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3788848185323005119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463100344085690140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44ce0c34ce633f34285379fd9a401c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bloodScreen: {fileID: 948298357359883092}
 --- !u!1 &8538361362480470160
 GameObject:
   m_ObjectHideFlags: 0

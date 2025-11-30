@@ -19,6 +19,9 @@ namespace Character
         [field: SerializeField]
         public PlayerInventoryController PlayerInventoryController { get; private set; }
 
+        [field: SerializeField]
+        public HealthController HealthController { get; private set; }
+
         [SerializeField]
         private Camera _playerCamera;
         public Camera MainCamere => _playerCamera;

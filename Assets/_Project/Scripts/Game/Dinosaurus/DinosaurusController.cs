@@ -19,6 +19,8 @@ namespace Dinosaurus
         private ZoneDetecter _redZone;
         [SerializeField]
         private ZoneDetecter _attackZone;
+        [SerializeField]
+        private ZoneDetecter _attackHitZone;
 
         [Header("Parameters")]
         private float _minReachedPointDistance = 5f;
@@ -35,10 +37,15 @@ namespace Dinosaurus
         [SerializeField]
         private float _maxTimeToWait = 100f;
 
+        [SerializeField]
+        private int _damage = 10;
+
 
         [Header("Animator")]
         [SerializeField]
         protected Animator _animator;
+        [SerializeField]
+        protected AnimatorReciver _animatorReciver;
         [SerializeField]
         private string _wait, _attack;
         
@@ -75,10 +82,17 @@ namespace Dinosaurus
             _attackZone.OnEntityEnter += OnAttackZoneEnter;
             _attackZone.OnEntityExit += OnAttackZoneExit;
 
+            _attackHitZone.OnEntityEnter += OnAttackHitZoneEnter;
+
+            _attackHitZone.gameObject.SetActive(false);
+
+            _animatorReciver.OnAttackAStart += () => _attackHitZone.gameObject.SetActive(true);
+            _animatorReciver.OnAttackEnd += () => _attackHitZone.gameObject.SetActive(false);
+
             GenerateMark();
         }
 
-
+    
         private void GenerateMark() => TimerMarkIdle += UnityEngine.Random.Range(_minTimeToWait, _maxTimeToWait);
 
         public bool IsTimerAfterMark(float time) => TimerMarkIdle < time;
@@ -161,6 +175,12 @@ namespace Dinosaurus
             _isAttacked = false;
         }
 
+
+        private void OnAttackHitZoneEnter(GameObject player)
+        {
+            if (player == GameClientsNerworkInfo.Singleton.MainPlayer.gameObject)
+                GameClientsNerworkInfo.Singleton.MainPlayer.HealthController.DealDmg(_damage);
+        }
 
         protected abstract void OnWarningZoneEnter(GameObject player);
 
