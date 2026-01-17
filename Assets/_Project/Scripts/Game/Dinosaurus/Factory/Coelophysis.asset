@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbfc7b01cb375f49a6ece8d19ab9465, type: 3}
+  m_Name: Coelophysis
+  m_EditorClassIdentifier: 
+  <Count>k__BackingField: 4
+  <DistanceToGather>k__BackingField: 10
+  <Prefab>k__BackingField: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}

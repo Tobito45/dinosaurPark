@@ -1368,7 +1368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _statisticsUI: {fileID: 935589452}
   _prefab: {fileID: 5829455668375784758, guid: 4c0f96f6f85d5234381e20bf260a0778, type: 3}
   _npcs:
   - {fileID: 11400000, guid: 4934739dcb03cff49b626ce6b1706a59, type: 2}
@@ -2804,6 +2803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 217222090}
+  - component: {fileID: 217222091}
   m_Layer: 0
   m_Name: Dinosaurus
   m_TagString: Untagged
@@ -2828,6 +2828,18 @@ Transform:
   - {fileID: 510299531}
   m_Father: {fileID: 1283824898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &217222091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217222089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1299515332def4590524ae6e3f6756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &218792916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4967,6 +4979,7 @@ GameObject:
   - component: {fileID: 510299531}
   - component: {fileID: 510299532}
   - component: {fileID: 510299533}
+  - component: {fileID: 510299534}
   m_Layer: 0
   m_Name: Placerias
   m_TagString: Untagged
@@ -4997,12 +5010,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510299530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45035aa43e74822458ce57c589a548f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   _count: 5
   _distanceToGather: 10
   _prefab: {fileID: -2345425178080816110, guid: da3802487acb9674cb256131864ec9b4, type: 3}
@@ -5033,7 +5045,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510299530}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
@@ -5051,6 +5063,41 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &510299534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510299530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08743e0982fa76489ea09e54bf2ab4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _spawnPoint: {fileID: 458605499}
+  _points:
+  - {fileID: 1403049096}
+  - {fileID: 1414592228}
+  - {fileID: 485856127}
+  - {fileID: 1049697040}
+  - {fileID: 1372247986}
+  - {fileID: 1723194137}
+  - {fileID: 1242368379}
+  - {fileID: 1365756518}
+  - {fileID: 1548579000}
+  - {fileID: 1441738605}
+  - {fileID: 880140428}
+  - {fileID: 584445534}
+  - {fileID: 1423687193}
+  - {fileID: 246282956}
+  - {fileID: 198425777}
+  - {fileID: 141542141}
+  - {fileID: 1117979136}
+  - {fileID: 2002670782}
+  config: {fileID: 11400000, guid: f2a87b3532c7bc24484a16471904b30f, type: 2}
+  typeFactory: 1
 --- !u!64 &513276029
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5084,6 +5131,7 @@ GameObject:
   - component: {fileID: 514678965}
   - component: {fileID: 514678967}
   - component: {fileID: 514678966}
+  - component: {fileID: 514678968}
   m_Layer: 0
   m_Name: Coelophysis
   m_TagString: Untagged
@@ -5114,14 +5162,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514678964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45035aa43e74822458ce57c589a548f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   _count: 4
-  _distanceToGather: 5
+  _distanceToGather: 10
   _prefab: {fileID: 2604590707768301656, guid: c697dc631796f9e47b23cf269a383bf2, type: 3}
   _spawnPoint: {fileID: 1713795625}
   _points:
@@ -5140,7 +5187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514678964}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
@@ -5158,6 +5205,31 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &514678968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514678964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08743e0982fa76489ea09e54bf2ab4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _spawnPoint: {fileID: 1713795625}
+  _points:
+  - {fileID: 1815578205}
+  - {fileID: 703078080}
+  - {fileID: 2140992491}
+  - {fileID: 537400759}
+  - {fileID: 1138810698}
+  - {fileID: 2099605735}
+  - {fileID: 1535150453}
+  - {fileID: 1799424347}
+  config: {fileID: 11400000, guid: 34849f9f5d76bd249bf448c64d1c25a4, type: 2}
+  typeFactory: 0
 --- !u!1 &531749462
 GameObject:
   m_ObjectHideFlags: 0
@@ -11260,10 +11332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _bootstrap:
-  - {fileID: 993206153}
-  - {fileID: 105241101}
-  - {fileID: 935589449}
 --- !u!114 &1246797625
 MonoBehaviour:
   m_ObjectHideFlags: 0

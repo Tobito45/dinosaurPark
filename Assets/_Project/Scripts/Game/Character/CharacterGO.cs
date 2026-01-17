@@ -1,5 +1,6 @@
   using Inventory;
 using Steamworks;
+using System;
 using System.Collections;
 using TMPro;
 using Unity.Netcode;
@@ -8,19 +9,19 @@ using UnityEngine;
 
 namespace Character
 {
-    public class CharacterGO : NetworkBehaviour
+    public class CharacterGO : NetworkBehaviour, IPlayerProxy
     {
         [SerializeField]
         private GameObject _body, _underGround, _canvas;
 
-        [field:SerializeField]
-        public CharacterMovement CharacterMovement { get; private set; }
+        [SerializeField]
+        private CharacterMovement _characterMovement;
 
-        [field: SerializeField]
-        public PlayerInventoryController PlayerInventoryController { get; private set; }
+        [SerializeField]
+        private PlayerInventoryController _playerInventoryController;
 
-        [field: SerializeField]
-        public HealthController HealthController { get; private set; }
+        [SerializeField]
+        private HealthController _healthController;
 
         [SerializeField]
         private Camera _playerCamera;
@@ -53,11 +54,11 @@ namespace Character
             GameClientsNerworkInfo.Singleton.AddPlayerRpc(OwnerClientId, SteamClient.Name, SteamClient.SteamId); //???
             GameClientsNerworkInfo.Singleton.MainPlayer = this;
 
-            GameClientsNerworkInfo.Singleton.CharacterPermissions.SetBasePermissions();
+            UserPermissions.Singleton.SetBasePermissions();
             _body.SetActive(false);
             _nickName.gameObject.SetActive(false);
 
-            PlayerInventoryController = GetComponent<PlayerInventoryController>();
+            _playerInventoryController = GetComponent<PlayerInventoryController>();
         }
 
         private IEnumerator SetDataAfter()
@@ -66,5 +67,21 @@ namespace Character
             _nickName.text = GameClientsNerworkInfo.Singleton.GetPlayer(OwnerClientId).name;
             enabled = false;
         }
+
+        public void AddOnHealthChange(Action<int> action) => _healthController.OnHealthChange += action;
+
+        public GameObject GetMainPlayer() => gameObject;
+
+        public void DealDamage(int damage) => _healthController.DealDmg(damage);
+
+        public void TeleportToPoint(Vector3 point) => _characterMovement.TeleportToPoint(point);
+
+        public bool PutItemToInventory(ItemRuntimeInfo info) => _playerInventoryController.PutItemToList(info);
+
+        public void DropItemFromInventory() => _playerInventoryController.DropItem();
+
+        public Camera GetPlayerCamera() => _playerCamera;
+
+        public Transform GetPlayerCameraTransform() => _playerCamera.transform;
     }
 } 

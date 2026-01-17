@@ -1,3 +1,4 @@
+using Character;
 using UnityEngine;
 
 namespace GameUI
@@ -63,13 +64,13 @@ namespace GameUI
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+                UserPermissions.Singleton.SetUIStunPermissons(true);
             }
             else if (!active) // restore only when closing
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+                UserPermissions.Singleton.SetUIStunPermissons(false);
             }
         }
     }

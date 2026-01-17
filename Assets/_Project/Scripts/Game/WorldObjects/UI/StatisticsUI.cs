@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bootstrap;
+using DI;
 using NPC;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 
 namespace GameUI
 {
-    public class StatisticsUI : MonoBehaviour, IInit
+    [Priority(100)]
+    public class StatisticsUI : MonoBehaviour
     {
         [SerializeField]
         private TextMeshProUGUI _textCountNegative, _textCountMiddle, _textCountPozitive, _textCountAll;
@@ -26,6 +28,7 @@ namespace GameUI
 
         public void Init()
         {
+            Debug.Log("Init " + nameof(StatisticsUI));
             _textCountNegative.text = _countNegative.ToString();
             _textCountMiddle.text = _countMiddle.ToString();
             _textCountPozitive.text = _countPozitive.ToString();

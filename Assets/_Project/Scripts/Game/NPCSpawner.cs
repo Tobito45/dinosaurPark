@@ -1,16 +1,17 @@
-using Bootstrap;
+using DI;
 using GameUI;
 using NPC;
 using Unity.Netcode;
 using UnityEngine;
 
-public class NPCSpawner : NetworkBehaviour, IInit
+
+[Priority(50)]
+public class NPCSpawner : NetworkBehaviour
 {
-    [Header("References")]
-    [SerializeField]
+    [Inject]
     private StatisticsUI _statisticsUI;
 
-
+    [Header("References")]
     [SerializeField]
     private NetworkObject _prefab;
 
@@ -36,5 +37,12 @@ public class NPCSpawner : NetworkBehaviour, IInit
         }
     }
 
-    public void Init() => SpawnNPCs();
+    public void Init()
+    {
+        this.Inject();
+
+        Debug.Log("Init " + nameof(NPCSpawner) + _statisticsUI);
+
+        SpawnNPCs();
+    }
 }

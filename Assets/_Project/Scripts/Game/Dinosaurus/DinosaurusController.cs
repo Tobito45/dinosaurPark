@@ -1,3 +1,6 @@
+using Dinosaurus.Command;
+using Dinosaurus.States;
+using Dinosaurus.Strategy;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -10,7 +13,7 @@ using UnityEngine.AI;
 namespace Dinosaurus
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public abstract class DinosaurusController : NetworkBehaviour
+    public class DinosaurusController : NetworkBehaviour
     {
         [Header("Zones")]
         [SerializeField]
@@ -23,6 +26,7 @@ namespace Dinosaurus
         private ZoneDetecter _attackHitZone;
 
         [Header("Parameters")]
+        [SerializeField]
         private float _minReachedPointDistance = 5f;
         [SerializeField]
         private float _maxReachedPointDistance = 20f;
@@ -37,9 +41,6 @@ namespace Dinosaurus
         [SerializeField]
         private float _maxTimeToWait = 100f;
 
-        [SerializeField]
-        private int _damage = 10;
-
 
         [Header("Animator")]
         [SerializeField]
@@ -47,10 +48,11 @@ namespace Dinosaurus
         [SerializeField]
         protected AnimatorReciver _animatorReciver;
         [SerializeField]
-        private string _wait, _attack;
+        private string _attack;
         
         public float ActualReachedPointDistance { get; private set; }
-        public float TimerMarkIdle { get; private set; }
+        private float timerToIdle;
+        public event Action<DinosaurusController> OnIdleTimeOver;
 
         protected NavMeshAgent _navMeshAgent;
         protected bool _isAnimaton;
@@ -58,12 +60,28 @@ namespace Dinosaurus
         public Action<DinosaurusController> OnEnterThePoint;
         public Action<DinosaurusController> OnStartHuntering;
         public Action<DinosaurusController> OnEndHuntering;
-        protected GameObject _target;
 
+        public event Action<DinosaurusController> OnIdleStart;
+        public event Action<DinosaurusController> OnIdleEnd;
+        
+        public GameObject Target { get; set; }
 
-        protected bool _isAttacked = false, _canAttack = false;
+        public bool IsAttacked { get; set; }
+        public bool CanAttack { get; set; }
 
-        protected virtual void Start()
+        private IDinoState _currentState;
+        public IDinoState CurrentState => _currentState;
+
+        private IHuntingDinoStrategy _huntingStrategy;
+
+        public void ChangeState(IDinoState newState)
+        {
+            _currentState?.Exit(this);
+            _currentState = newState;
+            _currentState.Enter(this);
+        }
+
+        public void Init()
         {
             if (!IsServer)
                 return;
@@ -86,76 +104,70 @@ namespace Dinosaurus
 
             _attackHitZone.gameObject.SetActive(false);
 
-            _animatorReciver.OnAttackAStart += () => _attackHitZone.gameObject.SetActive(true);
+            _animatorReciver.OnAttackStart += () => _attackHitZone.gameObject.SetActive(true);
             _animatorReciver.OnAttackEnd += () => _attackHitZone.gameObject.SetActive(false);
 
-            GenerateMark();
+            _animatorReciver.OnIdleStart += () => OnIdleStart?.Invoke(this);
+            _animatorReciver.OnIdleEnd += () => OnIdleEnd?.Invoke(this);
+
+            ResetIdleTimer();
         }
 
-    
-        private void GenerateMark() => TimerMarkIdle += UnityEngine.Random.Range(_minTimeToWait, _maxTimeToWait);
+        public void SetStrategic(IHuntingDinoStrategy strategy) => _huntingStrategy = strategy;
 
-        public bool IsTimerAfterMark(float time) => TimerMarkIdle < time;
-
-        public void StartWait()
-        {
-            if (TimerMarkIdle == 0 || _isAnimaton || _target != null)
-                return;
-
-            StartCoroutine(Wait());
-        }
-
-        private IEnumerator Wait()
-        {
-            _isAnimaton = true;
-            _navMeshAgent.isStopped = true;
-            _animator.SetBool("Wait", true);
-
-            while(true)
-            {
-                var info = _animator.GetCurrentAnimatorStateInfo(0);
-
-                if (info.IsName(_wait) && info.normalizedTime > 0.9f)
-                {
-                    TimerMarkIdle += info.length;
-                    break;
-                }
-
-                yield return null;
-            }
-
-            _animator.SetBool("Wait", false);
-            _navMeshAgent.isStopped = false;
-            _isAnimaton = false;
-            GenerateMark();
-        }
+        public void ResetIdleTimer() => timerToIdle = UnityEngine.Random.Range(_minTimeToWait, _maxTimeToWait);
 
         private void Update()
         {
             if (!IsServer)
                 return;
 
-            if (_navMeshAgent.destination != null &&
-                    !_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= ActualReachedPointDistance && _target == null)
-            {
-                _animator.SetBool("Run", false);
-                OnEnterThePoint?.Invoke(this);
-            }else
-                _animator.SetBool("Run", true);
+            Debug.Log(gameObject.name + " State Update: " + _currentState);
 
-            if (_target != null)
+            UpdateTimer();
+
+            _currentState?.Update(this);
+
+            if (Target != null)
             {
-                _navMeshAgent.destination = _target.transform.position;
-                if (_canAttack && !_isAttacked)
+                _navMeshAgent.destination = Target.transform.position;
+                if (CanAttack && !IsAttacked)
                     StartCoroutine(Attack());
             }
         }
+        public void UpdateTimer()
+        {
+            if (timerToIdle < 0)
+                return;
+
+            if (_currentState == null || _currentState.IsHunting())
+                return;
+
+            timerToIdle -= Time.deltaTime;
+            if (timerToIdle < 0)
+                OnIdleTimeOver?.Invoke(this);
+        }
+         
+        public void ExecuteCommand(IDinoCommand command) => command.Execute(this);
+
         public void SetNextPoint(Transform point, Vector3 offset) => _navMeshAgent.SetDestination(point.position + offset);
         public void SetNextPoint(Vector3 point, Vector3 offset) => _navMeshAgent.SetDestination(point + offset);
+        public void SetAnimationRun(bool isRun) => _animator.SetBool("Run", isRun);
+        public void SetAnimationWait(bool isWait) => _animator.SetBool("Wait", isWait);
+        public bool IsAnimationWait() => _animator.GetBool("Wait");
+        public void SetStopNavMesh(bool stop) => _navMeshAgent.isStopped = stop;
+        public bool IsDinoReachedPoint() => _navMeshAgent.destination != null &&
+                    !_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= ActualReachedPointDistance && Target == null;
+
+        public void SetAnimatorSpeed(float speed) => _animator.speed = speed;
+        public void SetNavMeshSpeed(float speed) => _navMeshAgent.speed = speed;
+
+        public float GetAnimatorSpeed() => _animator.speed;
+        public float GetNavMeshSpeed() => _navMeshAgent.speed;
 
         private IEnumerator Attack()
         {
-            _isAttacked = true;
+            IsAttacked = true;
             _navMeshAgent.isStopped = true;
             _animator.SetBool("Attack", true);
             Debug.Log("Attack from " + gameObject.name);
@@ -172,25 +184,19 @@ namespace Dinosaurus
 
             _animator.SetBool("Attack", false);
             _navMeshAgent.isStopped = false;
-            _isAttacked = false;
+            IsAttacked = false;
         }
 
+        private void OnWarningZoneEnter(GameObject player) => _huntingStrategy.OnWarningZoneEnter(this, player);
 
-        private void OnAttackHitZoneEnter(GameObject player)
-        {
-            if (player == GameClientsNerworkInfo.Singleton.MainPlayer.gameObject)
-                GameClientsNerworkInfo.Singleton.MainPlayer.HealthController.DealDmg(_damage);
-        }
+        private void OnWarningZoneExit(GameObject player) => _huntingStrategy.OnWarningZoneExit(this,player);
 
-        protected abstract void OnWarningZoneEnter(GameObject player);
+        private void OnRedZoneEnter(GameObject player) => _huntingStrategy.OnRedZoneEnter(this, player);
+        private void OnRedZoneExit(GameObject player) => _huntingStrategy.OnRedZoneExit(this, player);
 
-        protected abstract void OnWarningZoneExit(GameObject player);
-
-        protected abstract void OnRedZoneEnter(GameObject player);
-        protected abstract void OnRedZoneExit(GameObject player);
-
-        protected abstract void OnAttackZoneEnter(GameObject player);
-
-        protected abstract void OnAttackZoneExit(GameObject player);
+        private void OnAttackZoneEnter(GameObject player) => _huntingStrategy.OnAttackZoneEnter(this, player);
+        private void OnAttackZoneExit(GameObject player) => _huntingStrategy.OnAttackZoneExit(this, player);
+        private void OnAttackHitZoneEnter(GameObject player) => _huntingStrategy.OnAttackHitZoneEnter(this, player);
+        private void OnAttackHitZoneExit(GameObject player) => _huntingStrategy.OnAttackHitZoneExit(this, player);
     }
 }

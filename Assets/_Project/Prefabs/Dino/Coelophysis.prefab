@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 7459376346301347945}
   - component: {fileID: 8038985946701148832}
   - component: {fileID: 2604590707768301656}
-  - component: {fileID: 107603385026257097}
+  - component: {fileID: 656949350568801713}
   - component: {fileID: 5795985323300441785}
   - component: {fileID: 8152423029184636667}
   - component: {fileID: 2594815113185471776}
@@ -364,7 +364,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &107603385026257097
+--- !u!114 &656949350568801713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4336409340195128157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f0afc8f645a3d48a06f4b41bb311ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d8afedcc38715642a863165168b361e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
@@ -381,15 +381,14 @@ MonoBehaviour:
   _redZone: {fileID: 2716970081143204565}
   _attackZone: {fileID: 2316596787223456519}
   _attackHitZone: {fileID: 319975059933325696}
-  _maxReachedPointDistance: 20
+  _minReachedPointDistance: 2
+  _maxReachedPointDistance: 7
   _minSpeed: 3.5
   _maxSpeed: 4
-  _minTimeToWait: 50
+  _minTimeToWait: 70
   _maxTimeToWait: 100
-  _damage: 10
   _animator: {fileID: 5395794316536278425}
   _animatorReciver: {fileID: 3828955557553234498}
-  _wait: Coelophysis Armature|Coelophysis Idle
   _attack: Coelophysis Armature|Coelophysis Running Attack
 --- !u!136 &5795985323300441785
 CapsuleCollider:

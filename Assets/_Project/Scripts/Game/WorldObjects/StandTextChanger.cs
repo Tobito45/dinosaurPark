@@ -1,3 +1,4 @@
+using Character;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class StandTextChanger : NetworkBehaviour, IInteractable
         EventSystem.current.SetSelectedGameObject(null);
         _text.Select();
         _isInEditingMode = true;
-        GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(true);
+        UserPermissions.Singleton.SetUIStunPermissons(true);
     }
 
     public void OnInteractUp() { }
@@ -46,7 +47,7 @@ public class StandTextChanger : NetworkBehaviour, IInteractable
         {
             _text.DeactivateInputField();
             UpdateTextRpc(_text.text);
-            GameClientsNerworkInfo.Singleton.CharacterPermissions.SetUIStunPermissons(false);
+            UserPermissions.Singleton.SetUIStunPermissons(false);
             EventSystem.current.SetSelectedGameObject(null);
 
         }

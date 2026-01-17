@@ -1,5 +1,10 @@
+using Dinosaurus.Command;
+using Dinosaurus.Factory;
+using Dinosaurus.States;
+using Dinosaurus.Strategy;
 using NUnit.Framework;
 using Steamworks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +15,14 @@ using UnityEngine.UIElements;
 
 namespace Dinosaurus
 {
-    public class ColonyController : NetworkBehaviour
+    public class ColonyController : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField]
-        private int _count = 3;
+        private int _count;
         [SerializeField]
-        private float _distanceToGather = 5;
+        private float _distanceToGather;
 
-         
         [Header("References")]
         [SerializeField]
         private NetworkObject _prefab;
@@ -30,31 +34,49 @@ namespace Dinosaurus
         private List<Transform> _points = new();
         private Transform _currentPoint;
 
-        private float _mainTimer;
+        private List<DinosaurusController> _dinosauruses = new();
+        private IHuntingDinoStrategy _huntingDinoStrategy;
 
-        private Dictionary<DinosaurusController, DinoStatuses> _dinosauruses = new();
-
-        private void Start()
+        public void SetInfo(ColonyConfig colonyConfig, Transform spawnPoint)
         {
-            if (!IsServer)
-                return;
+            _count = colonyConfig.Count;
+            _distanceToGather = colonyConfig.DistanceToGather;
+            _spawnPoint = spawnPoint;
+            _prefab = colonyConfig.Prefab;
+        }
+
+        public void SetPoints(List<Transform> points) => _points = points;
+
+        public void SetStrategic(IHuntingDinoStrategy huntingDinoStrategy) => 
+            _huntingDinoStrategy = huntingDinoStrategy;
+
+        public void Spawn()
+        {
+            //if (!IsServer)
+            //    return;
 
             for (int i = 0; i < _count; i++)
             {
                 Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 4f;
                 Vector3 offset = new Vector3(randomCircle.x, 0, randomCircle.y);
 
-                NetworkObject networkObject = Instantiate(_prefab, _spawnPoint.position + offset, Quaternion.identity, transform);
+                NetworkObject networkObject = Instantiate(_prefab, _spawnPoint.position + offset, Quaternion.identity, _spawnPoint);
                 networkObject.Spawn(true);
 
                 DinosaurusController dinosaurusController = networkObject.GetComponent<DinosaurusController>();
-                _dinosauruses.Add(dinosaurusController, DinoStatuses.Stand);
+                _dinosauruses.Add(dinosaurusController);
+                dinosaurusController.Init();
+                dinosaurusController.SetStrategic(_huntingDinoStrategy);
+                dinosaurusController.ChangeState(new StandDinoState());
                 dinosaurusController.OnEnterThePoint += OnDinoComeToPoint;
                 dinosaurusController.OnStartHuntering += OnDinoStartHuntering;
                 dinosaurusController.OnEndHuntering += OnDinoEndHuntering;
+
+                dinosaurusController.OnIdleTimeOver += OnDinoTimerIdleOver;
             }
             StartCoroutine(LastStart());
         }
+
         private IEnumerator LastStart()
         {
             yield return null;
@@ -63,22 +85,14 @@ namespace Dinosaurus
 
         private void Update()
         {
-            if (!IsServer)
-                return;
+            //if (!IsServer)
+            //    return;
 
-            UpdateTimer();
             UpdateDistance();
         }
 
-        private void UpdateTimer()
-        {
-            _mainTimer += Time.deltaTime;
-            foreach (DinosaurusController dino in _dinosauruses.Keys)
-            {
-                if (dino.IsTimerAfterMark(_mainTimer))
-                    dino.StartWait();
-            }
-        }
+        private void OnDinoTimerIdleOver(DinosaurusController dino) 
+            => SendCommnadToDino(dino, new TimerOverIdleDinoCommand());
 
         private void UpdateDistance()
         {
@@ -86,25 +100,20 @@ namespace Dinosaurus
                 return;
 
             Vector3 center = Vector3.zero;
-            foreach (DinosaurusController obj in _dinosauruses.Keys)
-            {
-                if (_dinosauruses[obj] == DinoStatuses.Huntering)
-                    continue;
+            var notHuntering = _dinosauruses.Where(n => !n.CurrentState.IsHunting());
 
+            foreach (DinosaurusController obj in notHuntering)
                 center += obj.transform.position;
-            }
-            
-            center /= _dinosauruses.Select(n => n.Value != DinoStatuses.Huntering).Count();
 
-            foreach (DinosaurusController obj in _dinosauruses.Keys)
+
+            center /= notHuntering.Count();
+
+            foreach (DinosaurusController obj in notHuntering)
             {
-                if (_dinosauruses[obj] == DinoStatuses.Huntering)
-                    continue;
-
                 float distance = Vector3.Distance(obj.transform.position, center);
                 if (distance > _distanceToGather)
                 {
-                    SetAllDinoPointAndStatus(center, DinoStatuses.Gathering);
+                    SendCommnadToAllDino(new GatheringDinoCommand(center));
                     break;
                 }
             }
@@ -114,77 +123,51 @@ namespace Dinosaurus
         private Coroutine _waitCorortine = null;
         private void OnDinoComeToPoint(DinosaurusController controller)
         {
-            if (_dinosauruses[controller] == DinoStatuses.Huntering || _waitCorortine != null)
+            if (controller.CurrentState.IsHunting())
                 return;
 
-            DinoStatuses last = _dinosauruses[controller];
-             _dinosauruses[controller] = DinoStatuses.OnPoint;
+            bool isGathering = controller.CurrentState.IsGathering();
+            controller.ChangeState(new OnPointDinoState());
 
-            if (GetCountDinoStatuses(DinoStatuses.OnPoint).all)
-                _waitCorortine = StartCoroutine(WaiterOnPoint(last));
+            if(_waitCorortine == null)
+                _waitCorortine = StartCoroutine(WaiterOnPoint(isGathering));
         }
 
-        private IEnumerator WaiterOnPoint(DinoStatuses last)
+        private IEnumerator WaiterOnPoint(bool isGathering)
         {
+            yield return new WaitUntil(() =>
+                    _dinosauruses.All(d => d.CurrentState.IsWaitingOnPoint() || d.CurrentState.IsHunting())
+                ); 
             yield return new WaitForSeconds(5);
-            OnAllDinoOnPoint(last == DinoStatuses.Gathering);
+            OnAllDinoOnPoint(isGathering);
             _waitCorortine = null;
         }
 
-        private void OnDinoStartHuntering(DinosaurusController controller) => _dinosauruses[controller] = DinoStatuses.Huntering;
-        private void OnDinoEndHuntering(DinosaurusController controller)
-        {
-            _dinosauruses[controller] = DinoStatuses.Walked;
-            SetDinoPoint(_currentPoint.position, controller);
-        }
+        private void OnDinoStartHuntering(DinosaurusController controller) => 
+            SendCommnadToDino(controller, new HunteringDinoCommand());
+        private void OnDinoEndHuntering(DinosaurusController controller) =>
+            SendCommnadToDino(controller, new MoveToPointDinoCommand(_currentPoint.position, true));
 
         private void OnAllDinoOnPoint(bool withoutNewPoint = false)
         {
             if (!withoutNewPoint)
             {
-                Transform point = _points[Random.Range(0, _points.Count)];
+                Transform point = _points[UnityEngine.Random.Range(0, _points.Count)];
                 while (point == _currentPoint)
-                    point = _points[Random.Range(0, _points.Count)];
+                    point = _points[UnityEngine.Random.Range(0, _points.Count)];
                 
                 _currentPoint = point;
             }
-
-            SetAllDinoPointAndStatus(_currentPoint.position, DinoStatuses.Walked);
+            SendCommnadToAllDino(new MoveToPointDinoCommand(_currentPoint.position));
         }
-        
-        private void SetAllDinoPointAndStatus(Vector3 position, DinoStatuses status)
+
+        public void SendCommnadToAllDino(IDinoCommand dinoCommand)
         {
-            foreach (DinosaurusController dinosaurusController in _dinosauruses.Keys.ToList())
-            {
-                if (_dinosauruses[dinosaurusController] == DinoStatuses.Huntering)
-                    continue;
-
-                _dinosauruses[dinosaurusController] = status;
-                SetDinoPoint(position, dinosaurusController);
-            }
+            foreach (DinosaurusController dinosaurusController in _dinosauruses)
+                dinosaurusController.ExecuteCommand(dinoCommand);
         }
 
-        private void SetDinoPoint(Vector3 position, DinosaurusController dinosaurusController)
-        {
-            Vector2 randomCircle = Random.insideUnitCircle * 4f;
-            Vector3 offset = new Vector3(randomCircle.x, 0, randomCircle.y);
-            dinosaurusController.SetNextPoint(position, offset);
-        }
-
-        private (bool all, int count) GetCountDinoStatuses(DinoStatuses goalStatus)
-        {
-            int countFinded = 0;
-            foreach(DinoStatuses value in _dinosauruses.Values)
-                if(value == goalStatus || value == DinoStatuses.Huntering)
-                    countFinded++;
-        
-            return (countFinded == _dinosauruses.Count,  countFinded);
-        }
-
-
-        private enum DinoStatuses
-        {
-            Walked, OnPoint, Stand, Gathering, Huntering
-        }
+        public void SendCommnadToDino(DinosaurusController dinosaurusController, IDinoCommand dinoCommand)
+            => dinosaurusController.ExecuteCommand(dinoCommand);
     }
 }

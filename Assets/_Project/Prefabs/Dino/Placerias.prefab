@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 7459376346301347945}
   - component: {fileID: 8038985946701148832}
   - component: {fileID: -2345425178080816110}
-  - component: {fileID: 3982879866133351985}
+  - component: {fileID: 8346659055876267516}
   - component: {fileID: 2378222542423146354}
   - component: {fileID: 4780474260597287280}
   - component: {fileID: -9176634725937051680}
@@ -298,7 +298,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &3982879866133351985
+--- !u!114 &8346659055876267516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4336409340195128157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4eeeba635aa88240af22ffb8fb82574, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d8afedcc38715642a863165168b361e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
@@ -315,15 +315,14 @@ MonoBehaviour:
   _redZone: {fileID: 2716970081143204565}
   _attackZone: {fileID: 2316596787223456519}
   _attackHitZone: {fileID: 6685207662632646543}
+  _minReachedPointDistance: 5
   _maxReachedPointDistance: 20
   _minSpeed: 0.5
   _maxSpeed: 1
   _minTimeToWait: 20
   _maxTimeToWait: 50
-  _damage: 10
   _animator: {fileID: 8029007914326257449}
   _animatorReciver: {fileID: 1579019522068580128}
-  _wait: Placerias Armature|Coelophysis Idle Teeth
   _attack: Placerias Armature|Coelophysis Running Attack
 --- !u!136 &2378222542423146354
 CapsuleCollider:

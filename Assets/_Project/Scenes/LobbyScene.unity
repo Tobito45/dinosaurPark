@@ -1079,6 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c123f3a3ce09be479d539b62791922b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _networkServiceGameObject: {fileID: 1986432964}
   multiMenu: {fileID: 319123857}
   multiLobby: {fileID: 78635301}
   chatPanel: {fileID: 1316054638}
@@ -1090,6 +1091,10 @@ MonoBehaviour:
   readyButton: {fileID: 1606427543}
   NotreadyButton: {fileID: 1462442559}
   startButton: {fileID: 324666118}
+  _hostButton: {fileID: 1728182931}
+  _joinButton: {fileID: 1156435651}
+  _leaveButton: {fileID: 1750598520}
+  _errorText: {fileID: 0}
   connected: 0
   inGame: 0
   isHost: 0
@@ -2540,7 +2545,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  Logy: 
 --- !u!4 &1232238965
 Transform:
   m_ObjectHideFlags: 0

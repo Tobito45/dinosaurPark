@@ -1,3 +1,5 @@
+using Character;
+using DI;
 using Library;
 using NUnit.Framework;
 using System.Drawing;
@@ -7,6 +9,7 @@ using UnityEngine;
 
 namespace Inventory
 {
+    [Priority]
     public class PlayerInventoryController : NetworkBehaviour
     {
         private const int BASIC_INDEX_NOT_SELECTED = -1;
@@ -22,10 +25,10 @@ namespace Inventory
         [SerializeField]
         private LayerMask summonLayerMask, pickupLayerMask, interactLayerMask;
 
-        [Header("References")]
-        [SerializeField]
+        [Inject]
         private InventoryUIController _inventoryUIController;
 
+        [Header("References")]
         [SerializeField]
         private ItemPickUpInfoShower _itemPickUpInfoShower;
 
@@ -34,10 +37,12 @@ namespace Inventory
         private ItemRuntimeInfo[] _items = new ItemRuntimeInfo[MAX_INVENTAR_COUNT];
         private int _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
-        private void Start()
+        public void Init()
         {
             if (!IsOwner)
                 return;
+
+            this.Inject();
 
             _selectedItem = BASIC_INDEX_NOT_SELECTED;
 
@@ -49,7 +54,7 @@ namespace Inventory
         {
             if (!IsOwner) return;
 
-            if (!GameClientsNerworkInfo.Singleton.CharacterPermissions.HasPermission(Character.CharacterPermissionsType.Input))
+            if (!UserPermissions.Singleton.HasPermission(Character.CharacterPermissionsType.Input))
                 return;
 
             UpdatePickUp();

@@ -10,8 +10,7 @@ public class GameClientsNerworkInfo : NetworkBehaviour
 {
     private Dictionary<ulong, (string name, ulong id)> _playersInfo = new();
     public static GameClientsNerworkInfo Singleton { get; private set; }
-    public CharacterPermissions CharacterPermissions { get; private set; } = new();
-
+    
     public CharacterGO MainPlayer
     {
         get => mainPlayer; 

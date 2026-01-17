@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character;
+using DI;
 using Inventory;
 using Library;
 using NPC;
@@ -18,6 +19,9 @@ public class CheatConsole : MonoBehaviour
     public ScrollRect scrollRect;
 
     private Dictionary<string, Action<string[]>> commands;
+
+    [Inject]
+    private PlayerProxy _characterFacade;
 
     // [Header("NPC Info")]
     // [SerializeField]
@@ -125,8 +129,9 @@ public class CheatConsole : MonoBehaviour
                 break;
             case "npc":
                 NPCController[] npcs = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
-                CharacterMovement player = GameClientsNerworkInfo.Singleton.MainPlayer.CharacterMovement;
-                
+                if(_characterFacade == null)
+                    this.Inject();
+
                 foreach (var npc in npcs)
                 {
                     var npcName = npc.GetNPCInfo().Name;
@@ -135,7 +140,7 @@ public class CheatConsole : MonoBehaviour
                     {
                         Log("Found NPC: " + npcName);
 
-                        player.TeleportToPoint(npc.transform.position + Vector3.up * 1f);
+                        _characterFacade.TeleportToPoint(npc.transform.position + Vector3.up * 1f);
 
                         return;
                     }

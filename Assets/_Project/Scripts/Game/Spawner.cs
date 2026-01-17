@@ -1,4 +1,5 @@
-using Bootstrap;
+using Character;
+using DI;
 using Inventory;
 using Library;
 using System.Collections.Generic;
@@ -7,7 +8,9 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Spawner : NetworkBehaviour, IInit
+
+[Priority(50)]
+public class Spawner : NetworkBehaviour
 {
     [SerializeField] 
     private NetworkObject[] _itemsDinoworld, _itemsPlacement;
@@ -17,9 +20,14 @@ public class Spawner : NetworkBehaviour, IInit
     [SerializeField]
     private int _countDinoworld, _countPlacement;
 
+    [Inject]
+    private PlayerProxy _characterFacade;   
 
     public void Init()
     {
+        Debug.Log("Init " + nameof(Spawner));
+        this.Inject();
+
         if (IsServer)
         {
             for (int i = 0; i < _countDinoworld; i++)
@@ -62,8 +70,9 @@ public class Spawner : NetworkBehaviour, IInit
         if (!InventoryItemsLibrary.IsExistitsItem(name))
             return false;
 
-        var camera = GameClientsNerworkInfo.Singleton.MainPlayer.MainCamere.transform;
-        var spawnPos = camera.position + camera.forward * 1.2f;
+        PlayerProxy _characterFacade = Object.FindFirstObjectByType<GameBootstrapper>().Container.Resolve<PlayerProxy>();
+
+        var spawnPos = _characterFacade.GetPlayerCameraTransform().position + _characterFacade.GetPlayerCameraTransform().forward * 1.2f;
 
         FindAnyObjectByType<Spawner>().SpawnFromServerRPC(name, spawnPos);
         return true;
@@ -85,7 +94,9 @@ public class Spawner : NetworkBehaviour, IInit
 
         var item = InventoryItemsLibrary.GetItem(name);
         ItemRuntimeInfo info = new ItemRuntimeInfo(item.ItemName, item.GetRandomQuality(), item.GetRandomRarity());
-        return GameClientsNerworkInfo.Singleton.MainPlayer.PlayerInventoryController.PutItemToList(info);
+
+        PlayerProxy _characterFacade = Object.FindFirstObjectByType<GameBootstrapper>().Container.Resolve<PlayerProxy>();
+        return _characterFacade.PutItemToInventory(info);
     }
 
 }

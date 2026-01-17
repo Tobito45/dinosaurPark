@@ -1,3 +1,5 @@
+using Character;
+using DI;
 using Inventory;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +16,6 @@ namespace Placement
         [Header("References")]
         [SerializeField]
         private PlacementSelecter _placementSelecter;
-        private PlayerInventoryController _playerInventoryController;
 
         [Header("Scene References")]
         [SerializeField]
@@ -28,21 +29,26 @@ namespace Placement
         [SerializeField]
         private LayerMask placementMask;
 
-        private Camera playerCamera;
 
         Dictionary<Vector3, PlacementInfo> _places = new();
         public bool IsPlacementModeOn => _parent.gameObject.activeSelf;
         private List<PlacementInfo> _lastSelected = new List<PlacementInfo>();
 
+        [Inject]
+        private PlayerProxy _characterFacade;
+
         private void Start() => Init();
 
         private void Update()
         {
-            if (playerCamera == null)
-            {
-                playerCamera = GameClientsNerworkInfo.Singleton.MainPlayer?.MainCamere;
-                _playerInventoryController = GameClientsNerworkInfo.Singleton.MainPlayer?.GetComponent<PlayerInventoryController>();
-            }
+            //if (playerCamera == null)
+            //{
+            //    playerCamera = GameClientsNerworkInfo.Singleton.MainPlayer?.MainCamere;
+            //    _playerInventoryController = GameClientsNerworkInfo.Singleton.MainPlayer?.GetComponent<PlayerInventoryController>();
+            //}
+
+            if (_characterFacade == null)
+                this.Inject();
 
             //if (Input.GetKeyDown(KeyCode.P))
             //{
@@ -52,7 +58,7 @@ namespace Placement
 
             if (IsPlacementModeOn && _placementSelecter.SelectedPlacement != null)
             {
-                Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+                Ray ray = new Ray(_characterFacade.GetPlayerCameraTransform().position, _characterFacade.GetPlayerCameraTransform().forward);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, 5f, placementMask))
                 {
@@ -99,7 +105,7 @@ namespace Placement
                 ReservePointRPC(info.gameObject.transform.position);
 
             _lastSelected = null;
-            _playerInventoryController.DropItem();
+            _characterFacade.DropItemFromInventory();
             Disable();
         }
 

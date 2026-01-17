@@ -4,18 +4,21 @@ using UnityEngine;
 
 namespace Character
 {
-    public class CharacterPermissions
+    public class UserPermissions
     {
-        private HashSet<CharacterPermissionsType> _permissions = new();
+        private static readonly UserPermissions _instance = new UserPermissions();
+        public static UserPermissions Singleton => _instance;
+        private UserPermissions() { }  
 
+        private HashSet<CharacterPermissionsType> _permissions = new();
         public bool HasPermission(CharacterPermissionsType characterPermissions) => _permissions.Contains(characterPermissions);
-    
+
         public void AddPermission(CharacterPermissionsType characterPermissions) => _permissions.Add(characterPermissions);
         public void RemovePermission(CharacterPermissionsType characterPermissions) => _permissions.Remove(characterPermissions);
-    
+
         public void SetUIStunPermissons(bool enable)
         {
-            if(enable)
+            if (enable)
             {
                 RemovePermission(CharacterPermissionsType.Movement);
                 RemovePermission(CharacterPermissionsType.Input);

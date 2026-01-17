@@ -1,11 +1,17 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _networkServiceGameObject;
+
+    private NetworkFacade _networkFacade;
+
     [SerializeField]
     private GameObject multiMenu, multiLobby;
 
@@ -23,6 +29,12 @@ public class GameManager : MonoBehaviour
     private GameObject readyButton, NotreadyButton, startButton;
     private List<Message> chatMessages = new List<Message>();
 
+    [SerializeField]
+    private Button _hostButton, _joinButton, _leaveButton;
+
+    [SerializeField]
+    private TextMeshProUGUI _errorText;
+
     public bool connected;
     public bool inGame;
     public bool isHost;
@@ -31,17 +43,29 @@ public class GameManager : MonoBehaviour
     public Dictionary<ulong, GameObject> playerInfo = new Dictionary<ulong, GameObject>();
 
     public static GameManager instance;
+
+
     private void Awake()
     {
         if (instance != null)
             Destroy(this);
         else
             instance = this;
+
+        _networkFacade = new NetworkFacade(_networkServiceGameObject.GetComponent<INetworkService>());
     }
 
     private void Start()
     {
        startButton.GetComponent<Button>().onClick.AddListener(() => FindFirstObjectByType<SceneChanger>().StartGame());
+        
+        _hostButton?.onClick.AddListener(() => _networkFacade.StartHost(6));
+        _joinButton?.onClick.AddListener(() => _networkFacade.JoinGame(0));
+        _leaveButton?.onClick.AddListener(() => _networkFacade.LeaveGame());
+
+        _networkFacade.OnConnected += ConnectedAsClient;
+        _networkFacade.OnLobbyCreated += HostCreated;
+        _networkFacade.OnDisconnected += Disconnected;
     }
 
     private void Update()

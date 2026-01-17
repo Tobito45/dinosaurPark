@@ -699,9 +699,9 @@ MonoBehaviour:
   _body: {fileID: 7648266141810485057}
   _underGround: {fileID: 2091391057144971185}
   _canvas: {fileID: 4991457184822474913}
-  <CharacterMovement>k__BackingField: {fileID: 1609638286098760025}
-  <PlayerInventoryController>k__BackingField: {fileID: 5585000388310170860}
-  <HealthController>k__BackingField: {fileID: 4614344509789044956}
+  _characterMovement: {fileID: 1609638286098760025}
+  _playerInventoryController: {fileID: 5585000388310170860}
+  _healthController: {fileID: 4614344509789044956}
   _playerCamera: {fileID: 4968376664985321511}
   _nickName: {fileID: 8612953248519667522}
 --- !u!114 &5585000388310170860
@@ -729,7 +729,6 @@ MonoBehaviour:
   interactLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  _inventoryUIController: {fileID: 5880948316407909172}
   _itemPickUpInfoShower: {fileID: 8297816814574888421}
 --- !u!114 &4614344509789044956
 MonoBehaviour:

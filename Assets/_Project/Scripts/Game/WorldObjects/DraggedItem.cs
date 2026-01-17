@@ -1,4 +1,5 @@
 using Character;
+using DI;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ public class DraggedItem : NetworkBehaviour, IInteractable
     private Rigidbody heldObject;
 
     private bool _isDragged = false;
+
+    [Inject]
+    private PlayerProxy _characterFacade;
 
     private void Awake()
     {
@@ -48,7 +52,10 @@ public class DraggedItem : NetworkBehaviour, IInteractable
 
     public void OnInteractDown()
     {
-        SetEveryoneDragRpc(GameClientsNerworkInfo.Singleton.MainPlayer.gameObject);
+        if (_characterFacade == null)
+            this.Inject();
+
+        SetEveryoneDragRpc(_characterFacade.GetMainPlayer());
     }
 
 
@@ -63,7 +70,10 @@ public class DraggedItem : NetworkBehaviour, IInteractable
 
         if (itemRef.TryGet(out NetworkObject netObj))
         {
-            holdPoint = netObj.GetComponent<CharacterGO>().MainCamere.transform;
+            if (_characterFacade == null)
+                this.Inject();
+
+            holdPoint = _characterFacade.GetPlayerCameraTransform();
 
             heldObject.useGravity = false;
             heldObject.linearDamping = 10f;

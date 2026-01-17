@@ -57,7 +57,7 @@ namespace Character
 
         private void HandleMouseLook()
         {
-            if (!GameClientsNerworkInfo.Singleton.CharacterPermissions.HasPermission(CharacterPermissionsType.CameraRotate))
+            if (!UserPermissions.Singleton.HasPermission(CharacterPermissionsType.CameraRotate))
                 return;
 
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -71,7 +71,7 @@ namespace Character
         }
         private void HandleMovement()
         {
-            if (!GameClientsNerworkInfo.Singleton.CharacterPermissions.HasPermission(CharacterPermissionsType.Movement))
+            if (!UserPermissions.Singleton.HasPermission(CharacterPermissionsType.Movement))
                 return;
 
             float moveX = Input.GetAxis("Horizontal");
@@ -83,7 +83,7 @@ namespace Character
 
         private void HandleJump()
         {
-            if (!GameClientsNerworkInfo.Singleton.CharacterPermissions.HasPermission(CharacterPermissionsType.Jump))
+            if (!UserPermissions.Singleton.HasPermission(CharacterPermissionsType.Jump))
                 return;
 
             if (IsGroundedCustom() && velocity.y < 0)

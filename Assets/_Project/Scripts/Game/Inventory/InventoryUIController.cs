@@ -1,3 +1,4 @@
+using DI;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Inventory
 {
+    [Priority]
     public class InventoryUIController : MonoBehaviour
     {
         private const int BASIC_INDEX_NOT_SELECTED = -1;
